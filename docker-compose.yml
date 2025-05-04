@@ -1,0 +1,14 @@
+version: '3.7'
+
+services:
+  p1front:
+    container_name: pi1front
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - '.:/app'
+    ports:
+      - 3000:80
+    environment:
+      - CHOKIDAR_USEPOLLING=true
