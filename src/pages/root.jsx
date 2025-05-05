@@ -34,7 +34,7 @@ export default function Root() {
         className=" d-flex flex-column align-items-center h-100"
         style={{ width: "222px", backgroundColor: "#5d9cb2" }}
       >
-        <img src={logo} alt="Youtan Logo" />
+        <img src={logo} alt="Youtan Logo" style={{ width: '60%' }} />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
           {userProfile.profile.is_professor === true &&
             <Link to={'/home/prof'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
