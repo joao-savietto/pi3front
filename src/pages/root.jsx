@@ -1,5 +1,5 @@
 import { Outlet, Link } from "react-router-dom";
-import books from "../assets/books.jpg"
+import logo from "../assets/logo_ytn.png"
 import { Mortarboard } from "react-bootstrap-icons";
 import { Person, PersonStanding, Building, Journal } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
@@ -34,7 +34,7 @@ export default function Root() {
         className=" d-flex flex-column align-items-center h-100"
         style={{ width: "222px", backgroundColor: "#5d9cb2" }}
       >
-        <img src={books} alt="Book Cover" />
+        <img src={logo} alt="Youtan Logo" />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
           {userProfile.profile.is_professor === true &&
             <Link to={'/home/prof'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
