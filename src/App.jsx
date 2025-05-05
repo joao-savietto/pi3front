@@ -29,10 +29,14 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <EmptyHome />,
+        element: <Root />,
         children: [
-                    
-        ],             
+          {
+            path: "",
+            element: <EmptyHome />,
+          },
+          // Add other child routes here as needed
+        ],
       },
     ],
   },
