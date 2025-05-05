@@ -31,8 +31,8 @@ export default function Root() {
   return (
     <div className="d-flex flex-row w-100 h-100">
       <div
-        className=" d-flex flex-column bg-primary align-items-center h-100"
-        style={{ width: "222px" }}
+        className=" d-flex flex-column align-items-center h-100"
+        style={{ width: "222px", backgroundColor: "#5d9cb2" }}
       >
         <img src={books} alt="Book Cover" />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
