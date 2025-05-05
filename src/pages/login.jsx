@@ -49,6 +49,7 @@ export default function Login() {
                 accessToken: res.data['access'],
                 refreshToken: res.data['refresh']
             }))
+            navigate('/home'); // Redirect to the new empty home page
         }).catch(err => {
             const code = err.response.status
             if (code === 400)

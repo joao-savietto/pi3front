@@ -4,6 +4,7 @@ import ErrorPage from './pages/error-page.jsx';
 
 import Root from './pages/root.jsx';
 import Login from './pages/login.jsx';
+import EmptyHome from './pages/empty-home.jsx';
 import { Outlet } from "react-router-dom";
 
 
@@ -28,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/home",
-        element: <Root />,   
+        element: <EmptyHome />,
         children: [
                     
         ],             
