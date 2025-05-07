@@ -6,7 +6,7 @@ import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import useAxios from '../services/hooks/useAxios';
 import { useNavigate } from 'react-router-dom';
-import books_wt from "../assets/books_wt.png"
+import logo_ytn from "../assets/logo_ytn.png"
 
 export default function Login() {
 
@@ -69,8 +69,8 @@ export default function Login() {
                             <Container className='h-100'>
                                 <Row className='h-100'>
                                     <Col className='d-flex align-items-center justify-content-center  flex-column'>
-                                        <img src={books_wt} alt='logo' style={{ width: '110px', height: '110px' }} />
-                                        <p className='fs-5 fw-medium text-secondary'> Sistema de controle de Ocorrências</p>
+                                        <img src={logo_ytn} alt='logo' style={{ width: '110px', height: '110px' }} />
+                                        <p className='fs-5 fw-medium text-secondary'> RH Youtan</p>
                                         <p className=' fw-medium text-secondary text-center'>Esta é uma área restrita para usuários cadastrados.Informe seu usuário e senha para obter acesso ao sistema.</p>
                                     </Col>
                                     <Col className='d-flex justify-content-center flex-column'>
@@ -104,4 +104,3 @@ export default function Login() {
         </Container>
     );
 };
-
