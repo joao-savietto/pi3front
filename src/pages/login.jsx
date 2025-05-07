@@ -69,7 +69,15 @@ export default function Login() {
                             <Container className='h-100'>
                                 <Row className='h-100'>
                                     <Col className='d-flex align-items-center justify-content-center  flex-column'>
-                                        <img src={logo_ytn} alt='logo' style={{ width: '110px', height: '110px' }} />
+                                        <img 
+                                          src={logo_ytn} 
+                                          alt='logo' 
+                                          style={{ 
+                                            width: '110px', 
+                                            height: '110px', 
+                                            filter: 'brightness(0) saturate(100%)' 
+                                          }} 
+                                        />
                                         <p className='fs-5 fw-medium text-secondary'> RH Youtan</p>
                                         <p className=' fw-medium text-secondary text-center'>Esta é uma área restrita para usuários cadastrados.Informe seu usuário e senha para obter acesso ao sistema.</p>
                                     </Col>
