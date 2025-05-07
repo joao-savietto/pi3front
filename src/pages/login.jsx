@@ -68,18 +68,19 @@ export default function Login() {
                         <Card.Body className=''>
                             <Container className='h-100'>
                                 <Row className='h-100'>
-                                    <Col className='d-flex align-items-center justify-content-center  flex-column'>
-                                        <img 
-                                          src={logo_ytn} 
-                                          alt='logo' 
-                                          style={{ 
-                                            width: '110px', 
-                                            height: '110px', 
-                                            filter: 'brightness(0) saturate(100%)' 
-                                          }} 
+                                    <Col className='d-flex align-items-center justify-content-center flex-column'>
+                                        <div
+                                          style={{
+                                            width: '300px',
+                                            height: '110px',
+                                            backgroundSize: 'cover',
+                                            backgroundPosition: 'center',
+                                            backgroundColor: '#5d9cb2',
+                                            maskImage: `url(${logo_ytn})`,
+                                            WebkitMaskImage: `url(${logo_ytn})` // For Safari support
+                                          }}
                                         />
-                                        <p className='fs-5 fw-medium text-secondary'> RH Youtan</p>
-                                        <p className=' fw-medium text-secondary text-center'>Esta é uma área restrita para usuários cadastrados.Informe seu usuário e senha para obter acesso ao sistema.</p>
+                                        <p className='mt-4 fw-medium text-secondary text-center'>Esta é uma área restrita para usuários cadastrados.Informe seu usuário e senha para obter acesso ao sistema.</p>
                                     </Col>
                                     <Col className='d-flex justify-content-center flex-column'>
                                         <Form className='ms-3 me-3 border pt-5 pb-5 ps-3 pe-3 rounded-4' onSubmit={handleSubmit}>
