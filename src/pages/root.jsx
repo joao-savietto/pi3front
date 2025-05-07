@@ -1,7 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import logo from "../assets/logo_ytn.png"
-import { Mortarboard } from "react-bootstrap-icons";
-import { Person, PersonStanding, Building, Journal } from "react-bootstrap-icons";
+import { Person } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { setTokens, clearTokens } from "../services/slices/authSlice";
 import { useEffect } from "react";
@@ -36,42 +35,14 @@ export default function Root() {
       >
         <img src={logo} alt="Youtan Logo" style={{ width: '60%' }} />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
-          {userProfile.profile.is_professor === true &&
-            <Link to={'/home/prof'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-              <Mortarboard className="me-1" />
-              Salas de Aula
+          {/* EXAMPLE OF NAVIGATION LINKS */}
+          {/* {userProfile.profile.is_rh === true &&
+            <Link to={'/something'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
+              <IconExample className="me-1" />
+              Some label
             </Link>
-          }
-          {userProfile.profile.is_responsavel === true &&
-            <Link to={'/home/parent'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-              <PersonStanding className="me-1" />
-              Filhos(as)
-            </Link>
-          }
-          {userProfile.profile.is_superuser === true &&
-            <Link to={'/home/admin/classrooms'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-              <Building className="me-1" />
-              Salas de aula
-            </Link>
-          }       
-          {userProfile.profile.is_superuser === true &&
-            <Link to={'/home/admin/teachers'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-              <Journal className="me-1" />
-              Professores
-            </Link>
-          }              
-          {userProfile.profile.is_superuser === true &&
-            <Link to={'/home/admin/students'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-              <Mortarboard className="me-1" />
-              Alunos
-            </Link>
-          }   
-          {userProfile.profile.is_superuser === true &&
-            <Link to={'/home/admin/parents'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-              <PersonStanding className="me-1" />
-              Responsáveis
-            </Link>
-          }                     
+          }                     */}
+          {/* other stuff here */}
 
         </div>
         <div className="d-flex align-bottom w-100 h-100 flex-column-reverse ms-3">
@@ -92,7 +63,7 @@ export default function Root() {
           className="d-flex flex-column align-content-center w-100 bg-dark-subtle mb-2 bottom-shaddow "
           style={{ maxHeight: "80px" }}
         >
-          <p className="fs-5 mb-1 ms-3 mt-2" >Sistema de Controle de Ocorrências</p>
+          <p className="fs-5 mb-1 ms-3 mt-2" >RH Youtan</p>
           <p className="fs-7 fw-light ms-3 pb-2">
             {userProfile.profile.is_professor === true &&
               "Módulo do professor"

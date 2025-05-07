@@ -22,13 +22,7 @@ export default function Login() {
             axios.get('/api/users/me').then(res => {
 
                 dispatch(setProfile(res.data))
-                if (res.data.is_professor === true) {
-                    navigate('/home/prof');
-                } else if (res.data.is_responsavel === true) {
-                    navigate('/home/parent');
-                } else if (res.data.is_superuser === true) {
-                    navigate('/home/admin/classrooms')
-                }
+                navigate('/home')
 
             }).catch(err => {
                 console.log(err)
