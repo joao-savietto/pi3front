@@ -5,6 +5,7 @@ import ErrorPage from './pages/error-page.jsx';
 import Root from './pages/root.jsx';
 import Login from './pages/login.jsx';
 import EmptyHome from './pages/empty-home.jsx';
+import TalentManagementPage from './pages/talents.jsx'; // Added new page
 import { Outlet } from "react-router-dom";
 
 
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
           // Add other child routes here as needed
         ],
       },
+      {
+        path: "/talents", // Added new route
+        element: <TalentManagementPage />, // Added new page
+      }
     ],
   },
 ]);
