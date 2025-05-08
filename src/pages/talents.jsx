@@ -19,7 +19,8 @@ export default function TalentManagementPage() {
     experiences: '',
     educations: '',
     interests: '',
-    accomplishments: ''
+    accomplishments: '',
+    linkedin: ''
   });
 
   // Fetch talents from API
@@ -103,8 +104,13 @@ export default function TalentManagementPage() {
   // Submit the new talent form
   const handleSubmitAdd = async () => {
     try {
-      if (!newTalent.name.trim()) {
-        alert('Por favor, insira o nome do talento.');
+      // Check if all fields are empty
+      const isEmpty = Object.values(newTalent).every(
+        (value) => !value.trim()
+      );
+
+      if (isEmpty) {
+        alert('Por favor, preencha ao menos um campo.');
         return;
       }
 
@@ -119,7 +125,8 @@ export default function TalentManagementPage() {
         experiences: '',
         educations: '',
         interests: '',
-        accomplishments: ''
+        accomplishments: '',
+        linkedin: ''
       });
     } catch (err) {
       setError('Falha ao adicionar o talento. Por favor, tente novamente.');
@@ -217,6 +224,7 @@ export default function TalentManagementPage() {
               <p><strong>Interesses:</strong> {selectedTalent.interests}</p>
               <p><strong>Conquistas:</strong> {selectedTalent.accomplishments}</p>
               <p><strong>Contatos:</strong> {selectedTalent.contacts}</p>
+              <p><strong>LinkedIn:</strong> {selectedTalent.linkedin || 'N/A'}</p>
               <p><strong>Criado Em:</strong> {formatDate(selectedTalent.created_at)}</p>
               <p><strong>Atualizado Em:</strong> {formatDate(selectedTalent.updated_at)}</p>
             </div>
@@ -324,6 +332,17 @@ export default function TalentManagementPage() {
                 value={newTalent.accomplishments}
                 onChange={handleAddInputChange}
                 placeholder="Digite as conquistas do talento"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formLinkedin" className="mb-3">
+              <Form.Label>LinkedIn</Form.Label>
+              <Form.Control
+                type="text"
+                name="linkedin"
+                value={newTalent.linkedin}
+                onChange={handleAddInputChange}
+                placeholder="Digite o link do LinkedIn"
               />
             </Form.Group>
           </Form>
