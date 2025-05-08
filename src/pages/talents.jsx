@@ -13,7 +13,7 @@ export default function TalentManagementPage() {
   useEffect(() => {
     const fetchTalents = async () => {
       try {
-        const response = await axios.get('/api/talents/');
+        const response = await axios.get('/api/applicants/');
         setTalents(response.data.results || response.data);
       } catch (err) {
         setError('Failed to load talents. Please try again later.');
