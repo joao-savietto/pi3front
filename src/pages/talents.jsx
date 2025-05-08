@@ -130,7 +130,7 @@ export default function TalentManagementPage() {
       </div>
 
       {/* View Talent Modal */}
-      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg">
+      <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
         <Modal.Header closeButton>
           <Modal.Title>{selectedTalent?.name}</Modal.Title>
         </Modal.Header>
@@ -151,7 +151,7 @@ export default function TalentManagementPage() {
       </Modal>
 
       {/* Delete Confirmation Modal */}
-      <Modal show={!!deleteId} onHide={() => setDeleteId(null)}>
+      <Modal show={!!deleteId} onHide={() => setDeleteId(null)} centered>
         <Modal.Header closeButton>
           <Modal.Title>Excluir Talentos</Modal.Title>
         </Modal.Header>
