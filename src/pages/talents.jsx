@@ -5,10 +5,12 @@ import useAxios from '../services/hooks/useAxios';
 export default function TalentManagementPage() {
   const axios = useAxios();
   const [talents, setTalents] = useState([]);
+  const [filteredTalents, setFilteredTalents] = useState([]);
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedTalent, setSelectedTalent] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
+  const [searchQuery, setSearchQuery] = useState('');
 
   // Fetch talents from API
   useEffect(() => {
@@ -16,6 +18,7 @@ export default function TalentManagementPage() {
       try {
         const response = await axios.get('/api/applicants/');
         setTalents(response.data.results || response.data);
+        setFilteredTalents(response.data.results || response.data);
       } catch (err) {
         setError('Falha ao carregar os talentos. Por favor, tente novamente mais tarde.');
         console.error(err);
@@ -34,6 +37,30 @@ export default function TalentManagementPage() {
     });
   };
 
+  // Handle search input change
+  const handleSearchChange = (e) => {
+    setSearchQuery(e.target.value);
+  };
+
+  // Apply filter on Enter key or button click
+  const applyFilter = () => {
+    if (searchQuery.trim() === '') {
+      setFilteredTalents(talents);
+    } else {
+      const filtered = talents.filter(talent =>
+        talent.name.toLowerCase().includes(searchQuery.toLowerCase())
+      );
+      setFilteredTalents(filtered);
+    }
+  };
+
+  // Handle Enter key press
+  const handleKeyDown = (e) => {
+    if (e.key === 'Enter') {
+      applyFilter();
+    }
+  };
+
   // Handle delete confirmation
   const handleDeleteClick = (talent) => {
     setSelectedTalent(talent);
@@ -45,6 +72,7 @@ export default function TalentManagementPage() {
     try {
       await axios.delete(`/api/applicants/${deleteId}/`);
       setTalents(talents.filter(talent => talent.id !== deleteId));
+      setFilteredTalents(filteredTalents.filter(talent => talent.id !== deleteId));
       setDeleteId(null);
     } catch (err) {
       setError('Falha ao excluir o talento. Por favor, tente novamente.');
@@ -62,10 +90,18 @@ export default function TalentManagementPage() {
       {/* Search and Filters */}
       <Row className="mb-3">
         <Col md={9}>
-          <Form.Control type="text" placeholder="Pesquisar por nome..." />
+          <Form.Control
+            type="text"
+            placeholder="Pesquisar por nome..."
+            value={searchQuery}
+            onChange={handleSearchChange}
+            onKeyDown={handleKeyDown}
+          />
         </Col>
         <Col md={3}>
-          <Button variant="primary">Aplicar Filtros</Button>
+          <Button variant="primary" onClick={applyFilter}>
+            Aplicar Filtros
+          </Button>
         </Col>
       </Row>
 
@@ -82,7 +118,7 @@ export default function TalentManagementPage() {
           </tr>
         </thead>
         <tbody>
-          {talents.map(talent => (
+          {filteredTalents.map(talent => (
             <tr key={talent.id}>
               <td>{talent.name}</td>
               <td>{talent.contacts || 'N/A'}</td>
