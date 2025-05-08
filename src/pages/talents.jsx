@@ -11,6 +11,16 @@ export default function TalentManagementPage() {
   const [selectedTalent, setSelectedTalent] = useState(null);
   const [deleteId, setDeleteId] = useState(null);
   const [searchQuery, setSearchQuery] = useState('');
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newTalent, setNewTalent] = useState({
+    name: '',
+    contacts: '',
+    about: '',
+    experiences: '',
+    educations: '',
+    interests: '',
+    accomplishments: ''
+  });
 
   // Fetch talents from API
   useEffect(() => {
@@ -81,6 +91,42 @@ export default function TalentManagementPage() {
     }
   };
 
+  // Handle form input changes for adding a new talent
+  const handleAddInputChange = (e) => {
+    const { name, value } = e.target;
+    setNewTalent({
+      ...newTalent,
+      [name]: value
+    });
+  };
+
+  // Submit the new talent form
+  const handleSubmitAdd = async () => {
+    try {
+      if (!newTalent.name.trim()) {
+        alert('Por favor, insira o nome do talento.');
+        return;
+      }
+
+      await axios.post('/api/applicants/', newTalent);
+      setTalents([...talents, { ...newTalent, id: Date.now() }]);
+      setFilteredTalents([...filteredTalents, { ...newTalent, id: Date.now() }]);
+      setShowAddModal(false);
+      setNewTalent({
+        name: '',
+        contacts: '',
+        about: '',
+        experiences: '',
+        educations: '',
+        interests: '',
+        accomplishments: ''
+      });
+    } catch (err) {
+      setError('Falha ao adicionar o talento. Por favor, tente novamente.');
+      console.error(err);
+    }
+  };
+
   return (
     <Container className="mt-4">
       {error && <Alert variant="danger">{error}</Alert>}
@@ -104,6 +150,13 @@ export default function TalentManagementPage() {
           </Button>
         </Col>
       </Row>
+
+      {/* Add Talent Button */}
+      <div className="d-flex justify-content-end mt-3">
+        <Button variant="success" onClick={() => setShowAddModal(true)}>
+          Adicionar Talentos
+        </Button>
+      </div>
 
       {/* Table */}
       <Table striped bordered hover>
@@ -150,13 +203,6 @@ export default function TalentManagementPage() {
         </tbody>
       </Table>
 
-      {/* Add Talent Button */}
-      <div className="d-flex justify-content-end mt-3">
-        <Button variant="success" onClick={() => alert('Funcionalidade de adicionar talento em breve')}>
-          Adicionar Talentos
-        </Button>
-      </div>
-
       {/* View Talent Modal */}
       <Modal show={showModal} onHide={() => setShowModal(false)} size="lg" centered>
         <Modal.Header closeButton>
@@ -192,6 +238,102 @@ export default function TalentManagementPage() {
           </Button>
           <Button variant="danger" onClick={confirmDelete}>
             Confirmar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Add Talent Modal */}
+      <Modal show={showAddModal} onHide={() => setShowAddModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Adicionar Novo Talentos</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+            <Form.Group controlId="formName" className="mb-3">
+              <Form.Label>Nome</Form.Label>
+              <Form.Control
+                type="text"
+                name="name"
+                value={newTalent.name}
+                onChange={handleAddInputChange}
+                placeholder="Digite o nome do talento"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formContacts" className="mb-3">
+              <Form.Label>Contatos</Form.Label>
+              <Form.Control
+                type="text"
+                name="contacts"
+                value={newTalent.contacts}
+                onChange={handleAddInputChange}
+                placeholder="Digite os contatos do talento"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formAbout" className="mb-3">
+              <Form.Label>Sobre</Form.Label>
+              <Form.Control
+                as="textarea"
+                rows={3}
+                name="about"
+                value={newTalent.about}
+                onChange={handleAddInputChange}
+                placeholder="Digite uma breve descrição do talento"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formExperiences" className="mb-3">
+              <Form.Label>Experiências</Form.Label>
+              <Form.Control
+                type="text"
+                name="experiences"
+                value={newTalent.experiences}
+                onChange={handleAddInputChange}
+                placeholder="Digite as experiências do talento"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formEducations" className="mb-3">
+              <Form.Label>Educação</Form.Label>
+              <Form.Control
+                type="text"
+                name="educations"
+                value={newTalent.educations}
+                onChange={handleAddInputChange}
+                placeholder="Digite a educação do talento"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formInterests" className="mb-3">
+              <Form.Label>Interesses</Form.Label>
+              <Form.Control
+                type="text"
+                name="interests"
+                value={newTalent.interests}
+                onChange={handleAddInputChange}
+                placeholder="Digite os interesses do talento"
+              />
+            </Form.Group>
+
+            <Form.Group controlId="formAccomplishments" className="mb-3">
+              <Form.Label>Conquistas</Form.Label>
+              <Form.Control
+                type="text"
+                name="accomplishments"
+                value={newTalent.accomplishments}
+                onChange={handleAddInputChange}
+                placeholder="Digite as conquistas do talento"
+              />
+            </Form.Group>
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="success" onClick={handleSubmitAdd}>
+            Adicionar
           </Button>
         </Modal.Footer>
       </Modal>
