@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Form, Button, Container, Row, Col, Modal, Alert } from 'react-bootstrap';
-import { useAxios } from '../services/hooks/useAxios';
+import useAxios from '../services/hooks/useAxios';
 
 export default function TalentManagementPage() {
   const axios = useAxios();
