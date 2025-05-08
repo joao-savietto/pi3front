@@ -36,12 +36,10 @@ export default function Root() {
         <img src={logo} alt="Youtan Logo" style={{ width: '60%' }} />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
           {/* EXAMPLE OF NAVIGATION LINKS */}
-          {userProfile.profile.is_rh === true &&
-            <Link to={'/talents'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-              <Person className="me-1" />
-              Talents
-            </Link>
-          }
+          <Link to={'/talents'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
+            <Person className="me-1" />
+            Talents
+          </Link>
           {/* other stuff here */}
 
         </div>
