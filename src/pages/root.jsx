@@ -52,7 +52,7 @@ export default function Root() {
             }}
           >
             <Person className="me-1" />
-            {userProfile.profile.nome}
+            {userProfile.profile?.nome || "[Sem Nome]"}
           </div>
         </div>
       </div>
@@ -63,15 +63,7 @@ export default function Root() {
         >
           <p className="fs-5 mb-1 ms-3 mt-2" >RH Youtan</p>
           <p className="fs-7 fw-light ms-3 pb-2">
-            {userProfile.profile.is_professor === true &&
-              "Módulo do professor"
-            }
-            {userProfile.profile.is_responsavel === true &&
-              "Módulo dos pais"
-            }
-            {userProfile.profile.is_superuser === true &&
-               "Módulo do administrador"
-            }
+            Módulos
           </p>
         </div>
         <div className=" position-relative w-auto ms-3 me-3">
