@@ -16,7 +16,7 @@ export default function TalentManagementPage() {
         const response = await axios.get('/api/applicants/');
         setTalents(response.data.results || response.data);
       } catch (err) {
-        setError('Failed to load talents. Please try again later.');
+        setError('Falha ao carregar os talentos. Por favor, tente novamente mais tarde.');
         console.error(err);
       }
     };
@@ -26,7 +26,7 @@ export default function TalentManagementPage() {
 
   // Format date for display
   const formatDate = (dateString) => {
-    return new Date(dateString).toLocaleDateString('en-US', {
+    return new Date(dateString).toLocaleDateString('pt-BR', {
       year: 'numeric',
       month: 'short',
       day: '2-digit'
@@ -37,23 +37,23 @@ export default function TalentManagementPage() {
     <Container className="mt-4">
       {error && <Alert variant="danger">{error}</Alert>}
       
-      <h2>Talent Management</h2>
+      <h2>Gestão de Talentos</h2>
       
       {/* Search and Filters */}
       <Row className="mb-3">
         <Col md={6}>
-          <Form.Control type="text" placeholder="Search by name..." />
+          <Form.Control type="text" placeholder="Pesquisar por nome..." />
         </Col>
         <Col md={3}>
           <Form.Select>
             <option>Status</option>
-            <option>Available</option>
-            <option>On Hold</option>
-            <option>Rejected</option>
+            <option>Disponível</option>
+            <option>Em Espera</option>
+            <option>Rejeitado</option>
           </Form.Select>
         </Col>
         <Col md={3}>
-          <Button variant="primary">Apply Filters</Button>
+          <Button variant="primary">Aplicar Filtros</Button>
         </Col>
       </Row>
 
@@ -61,12 +61,12 @@ export default function TalentManagementPage() {
       <Table striped bordered hover>
         <thead>
           <tr>
-            <th>Name</th>
-            <th>Contacts</th>
-            <th>About</th>
-            <th>Created At</th>
-            <th>Updated At</th>
-            <th>Actions</th>
+            <th>Nome</th>
+            <th>Contatos</th>
+            <th>Sobre</th>
+            <th>Criado Em</th>
+            <th>Atualizado Em</th>
+            <th>Ações</th>
           </tr>
         </thead>
         <tbody>
@@ -74,7 +74,7 @@ export default function TalentManagementPage() {
             <tr key={talent.id}>
               <td>{talent.name}</td>
               <td>{talent.contacts || 'N/A'}</td>
-              <td>{talent.about || 'No description available'}</td>
+              <td>{talent.about || 'Nenhuma descrição disponível'}</td>
               <td>{formatDate(talent.created_at)}</td>
               <td>{formatDate(talent.updated_at)}</td>
               <td>
@@ -86,15 +86,15 @@ export default function TalentManagementPage() {
                     setShowModal(true);
                   }}
                 >
-                  View
+                  Ver
                 </Button>
                 <Button 
                   variant="outline-danger" 
                   size="sm" 
                   className="ms-2"
-                  onClick={() => alert(`Delete talent ${talent.name}`)}
+                  onClick={() => alert(`Excluir talento ${talent.name}`)}
                 >
-                  Delete
+                  Excluir
                 </Button>
               </td>
             </tr>
@@ -104,8 +104,8 @@ export default function TalentManagementPage() {
 
       {/* Add Talent Button */}
       <div className="d-flex justify-content-end mt-3">
-        <Button variant="success" onClick={() => alert('Add talent functionality coming soon')}>
-          Add Talent
+        <Button variant="success" onClick={() => alert('Funcionalidade de adicionar talento em breve')}>
+          Adicionar Talentos
         </Button>
       </div>
 
@@ -117,14 +117,14 @@ export default function TalentManagementPage() {
         <Modal.Body>
           {selectedTalent && (
             <div>
-              <p><strong>About:</strong> {selectedTalent.about}</p>
-              <p><strong>Experiences:</strong> {selectedTalent.experiences}</p>
-              <p><strong>Educations:</strong> {selectedTalent.educations}</p>
-              <p><strong>Interests:</strong> {selectedTalent.interests}</p>
-              <p><strong>Accomplishments:</strong> {selectedTalent.accomplishments}</p>
-              <p><strong>Contacts:</strong> {selectedTalent.contacts}</p>
-              <p><strong>Created At:</strong> {formatDate(selectedTalent.created_at)}</p>
-              <p><strong>Updated At:</strong> {formatDate(selectedTalent.updated_at)}</p>
+              <p><strong>Sobre:</strong> {selectedTalent.about}</p>
+              <p><strong>Experiências:</strong> {selectedTalent.experiences}</p>
+              <p><strong>Educação:</strong> {selectedTalent.educations}</p>
+              <p><strong>Interesses:</strong> {selectedTalent.interests}</p>
+              <p><strong>Conquistas:</strong> {selectedTalent.accomplishments}</p>
+              <p><strong>Contatos:</strong> {selectedTalent.contacts}</p>
+              <p><strong>Criado Em:</strong> {formatDate(selectedTalent.created_at)}</p>
+              <p><strong>Atualizado Em:</strong> {formatDate(selectedTalent.updated_at)}</p>
             </div>
           )}
         </Modal.Body>
