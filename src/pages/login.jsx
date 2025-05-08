@@ -22,7 +22,7 @@ export default function Login() {
             axios.get('/api/users/me').then(res => {
 
                 dispatch(setProfile(res.data))
-                navigate('/home')
+                navigate('/')
 
             }).catch(err => {
                 console.log(err)
