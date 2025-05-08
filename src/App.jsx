@@ -36,13 +36,12 @@ const router = createBrowserRouter([
             path: "",
             element: <EmptyHome />,
           },
-          // Add other child routes here as needed
+          {
+            path: "talents",
+            element: <TalentManagementPage />,
+          }
         ],
       },
-      {
-        path: "/talents", // Added new route
-        element: <TalentManagementPage />, // Added new page
-      }
     ],
   },
 ]);
