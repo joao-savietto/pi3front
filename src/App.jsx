@@ -16,32 +16,21 @@ import {
 
 const router = createBrowserRouter([
   {
+    path: "/login",
+    element: <Login />,
+  },
+  {
     path: "/",
-    element: <Outlet />,
-    errorElement: <ErrorPage />,
+    element: <Root />,
     children: [
       {
-        path: "/",
-        element: <Login />
+        path: "",
+        element: <EmptyHome />,
       },
       {
-        path: "/login",
-        element: <Login />,
-      },
-      {
-        path: "/home",
-        element: <Root />,
-        children: [
-          {
-            path: "",
-            element: <EmptyHome />,
-          },
-          {
-            path: "talents",
-            element: <TalentManagementPage />,
-          }
-        ],
-      },
+        path: "talents",
+        element: <TalentManagementPage />,
+      }
     ],
   },
 ]);
