@@ -43,7 +43,7 @@ export default function Login() {
                 accessToken: res.data['access'],
                 refreshToken: res.data['refresh']
             }))
-            navigate('/home'); // Redirect to the new empty home page
+            navigate('/'); // Redirect to home after login
         }).catch(err => {
             const code = err.response.status
             if (code === 400)

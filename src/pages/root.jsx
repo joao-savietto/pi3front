@@ -17,7 +17,7 @@ export default function Root() {
   function logout() {
     dispatch(clearTokens());
     localStorage.clear();
-    navigate('/');
+    navigate('/login'); // Fixed: Redirect to /login instead of /
   }
 
   useEffect(() => {
@@ -33,12 +33,12 @@ export default function Root() {
         className=" d-flex flex-column align-items-center h-100"
         style={{ width: "222px", backgroundColor: "#5d9cb2" }}
       >
-        <img src={logo} alt="Youtan Logo" style={{ width: '60%' }} />
+        <img src={logo} alt="Youtan Logo" style={{ width: '60%' }} className="mb-5" />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
           {/* EXAMPLE OF NAVIGATION LINKS */}
           <Link to={'/talents'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
             <Person className="me-1" />
-            Talents
+            Candidatos
           </Link>
           {/* other stuff here */}
 
