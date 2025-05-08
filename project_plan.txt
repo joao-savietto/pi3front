@@ -1,0 +1,130 @@
+# HR Selection Process Management Platform - MVP Plan                                                                                      
+                                                                                                                                           
+## Overview                                                                                                                                
+This document outlines the plan for developing an MVP (Minimum Viable Product) for a platform to help the HR department manage selection   
+processes, replacing their previous Trello usage. The goal is to provide a Kanban-style interface familiar to users while accommodating the
+specific needs of tracking talents and their participations across various selection processes.                                            
+                                                                                                                                           
+## Core Concepts                                                                                                                           
+                                                                                                                                           
+1.  **Selection Process:** A defined hiring initiative or recruitment effort for a specific role/category.                                 
+2.  **Process Category:** Categorizes Selection Processes (e.g., Development, Marketing). Defined by an enum:                              
+    *   `ADMINISTRATIVE_FINANCIAL`                                                                                                         
+    *   `COMMERCIAL`                                                                                                                       
+    *   `COMMUNICATION_MARKETING`                                                                                                          
+    *   `DEVELOPMENT`                                                                                                                      
+    *   `INNOVATION`                                                                                                                       
+    *   `PEOPLE`                                                                                                                           
+    *   `PRODUCTS`                                                                                                                         
+    *   `OPERATIONS`                                                                                                                       
+    *   `QUALITY`                                                                                                                          
+3.  **Talent:** An individual candidate or potential hire.                                                                                 
+4.  **Participation:** The relationship between a Talent and a specific Selection Process. Represents one attempt by the talent for that   
+process, with its own status.                                                                                                              
+                                                                                                                                           
+## UI/UX Design - MVP Features                                                                                                             
+                                                                                                                                           
+### Level 1: Main Home Screen (Process Category Kanban)                                                                                    
+                                                                                                                                           
+*   **Layout:** Kanban board with columns based on `ProcessCategory`.                                                                      
+    *   Columns: Administrative & Financial, Commercial, Communication & Marketing, Development, Innovation, People, Products, Operations, 
+Quality.                                                                                                                                   
+*   **Cards:** Each card represents a single `Selection Process`.                                                                          
+    *   Card Content:                                                                                                                      
+        *   Process Title/Name                                                                                                             
+        *   Brief description or status indicator (e.g., "Active", "Closed")                                                               
+        *   Number of current participants (optional but helpful)                                                                          
+    *   Interaction:                                                                                                                       
+        *   Clicking a card opens a modal or navigates to a dedicated page showing process details and the second-level Kanban.            
+*   **Quick Actions:**                                                                                                                     
+    *   Button to "Create New Selection Process" (select category, fill details).                                                          
+                                                                                                                                           
+### Level 2: Individual Selection Process Page/Modal (Participation Kanban)                                                                
+                                                                                                                                           
+*   **Header:** Displays the name/details of the specific `Selection Process`.                                                             
+*   **Columns:** Based on `ApplicationStep` enum:                                                                                          
+    *   Hunting                                                            
+    *   Database                                                           
+    *   HR Interview                                                       
+    *   Technical Challenge Not Submitted                                  
+    *   Technical Challenge                                                
+    *   Leadership Interview                                               
+    *   Offer Phase                                                        
+
+    *   Onboarding                                                         
+    *   Stand By                                                           
+    *   Rejected                                                           
+    *   Declined (Consider if "Rejected" and "Declined" should be combined based on workflow).                                              
+*   **Cards:** Each card represents a single `Participation`.                                                                              
+    *   Card Content:                                                                                                                      
+        *   Talent Name                                                                                                                    
+        *   Current ApplicationStep                                                                                                        
+        *   Date entered this step (optional)                                                                                              
+    *   Interaction:                                                                                                                       
+        *   Clicking a participation card opens a modal or navigates to detailed view for that talent's application within this process.   
+            *   Full Talent details (linkable back to the Talent Database).                                                                
+            *   Detailed notes, documents, interview feedback specific to this participation.                                              
+            *   Options to update ApplicationStep.                                                                                         
+        *   Button/Icon on card or button at top to "Add Participant" (create new Participation for this process).                         
+                                                                                                                                           
+### Level 3: Talent Management Page                                                                                                          
+* **Purpose:** Dedicated management of talent pool with advanced filtering and organization
+* **Layout:** Responsive table view with adjustable columns
+* **Table Structure:**
+  | Column         | Description                              | Character Limit |
+  |----------------|------------------------------------------|-----------------|
+  | Name           | Full name of the talent                  | 100             |
+  | Contact        | Email/Phone number                       | 150             |
+  | Status         | Current availability (e.g., Available)   | 50              |
+  | Last Updated   | Timestamp of last activity               | -               |
+  | Actions        | Edit/Delete buttons                      | -               |
+
+* **Search & Filter:**
+  - Top bar with search field for name filtering
+  - Dropdown filters for:
+    * Status (Available, On Hold, Rejected)
+    * Category (Development, Marketing, etc.)
+    * Last Activity Date range
+
+* **Interactive Features:**
+  - **Add Talent Button:** Opens form to create new talent record
+  - **Edit Button:** Modifies existing talent information
+  - **Delete Button:** Removes talent from database (with confirmation)
+  - **Export Option:** CSV export of talent list
+
+* **Profile View (Detail Page):**
+  - Displays full profile with:
+    * Personal details (address, resume)
+    * Complete participation history
+    * Communication logs
+    * Notes section for HR comments
+
+### Navigation                                                                                                                             
+*   Clear navigation between:
+    * Main Kanban (Level 1)
+    * Selection Process Details (Level 2)
+    * Talent Management Page (Level 3)
+*   Dedicated "Talents" menu item in main navigation
+*   Direct links from:
+    * Selection Process details (show related talents)
+    * Participation cards (view talent profile)
+
+## Data Model Considerations                                                                                                               
+*   Robust backend model for:                                                                                                              
+    *   `Selection Process` -> `ProcessCategory`                                                                                           
+    *   `Participation` -> `Selection Process` & `Talent`                                                                                  
+    *   `Participation` -> `ApplicationStep`                                                                                               
+    *   `Talent` with fields:
+        ```python
+        class Talent(models.Model):
+            name = models.CharField(max_length=100)
+            contact = models.CharField(max_length=150)
+            category = models.ForeignKey(ProcessCategory, on_delete=models.CASCADE)
+            status = models.CharField(max_length=50)  # e.g., "Available", "On Hold"
+            last_updated = models.DateTimeField(auto_now=True)
+            resume = models.FileField(upload_to='resumes/')
+        ```
+
+## MVP Scope                                                                                                                               
+Focus on implementing the two-level Kanban structure, basic CRUD operations (Create, Read, Update, Delete) for Processes and Talents, and  
+managing Participations within this framework. Implement core navigation and status tracking.
