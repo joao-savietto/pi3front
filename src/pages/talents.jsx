@@ -8,6 +8,7 @@ export default function TalentManagementPage() {
   const [error, setError] = useState(null);
   const [showModal, setShowModal] = useState(false);
   const [selectedTalent, setSelectedTalent] = useState(null);
+  const [deleteId, setDeleteId] = useState(null);
 
   // Fetch talents from API
   useEffect(() => {
@@ -31,6 +32,25 @@ export default function TalentManagementPage() {
       month: 'short',
       day: '2-digit'
     });
+  };
+
+  // Handle delete confirmation
+  const handleDeleteClick = (talent) => {
+    setSelectedTalent(talent);
+    setDeleteId(talent.id);
+  };
+
+  // Confirm deletion
+  const confirmDelete = async () => {
+    try {
+      await axios.delete(`/api/applicants/${deleteId}/`);
+      setTalents(talents.filter(talent => talent.id !== deleteId));
+      setDeleteId(null);
+    } catch (err) {
+      setError('Falha ao excluir o talento. Por favor, tente novamente.');
+      console.error(err);
+      setDeleteId(null);
+    }
   };
 
   return (
@@ -92,7 +112,7 @@ export default function TalentManagementPage() {
                   variant="outline-danger" 
                   size="sm" 
                   className="ms-2"
-                  onClick={() => alert(`Excluir talento ${talent.name}`)}
+                  onClick={() => handleDeleteClick(talent)}
                 >
                   Excluir
                 </Button>
@@ -128,6 +148,24 @@ export default function TalentManagementPage() {
             </div>
           )}
         </Modal.Body>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal show={!!deleteId} onHide={() => setDeleteId(null)}>
+        <Modal.Header closeButton>
+          <Modal.Title>Excluir Talentos</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <p>Tem certeza que deseja excluir este talento?</p>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setDeleteId(null)}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={confirmDelete}>
+            Confirmar
+          </Button>
+        </Modal.Footer>
       </Modal>
     </Container>
   );
