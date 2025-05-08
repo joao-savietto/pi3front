@@ -61,16 +61,8 @@ export default function TalentManagementPage() {
       
       {/* Search and Filters */}
       <Row className="mb-3">
-        <Col md={6}>
+        <Col md={9}>
           <Form.Control type="text" placeholder="Pesquisar por nome..." />
-        </Col>
-        <Col md={3}>
-          <Form.Select>
-            <option>Status</option>
-            <option>Disponível</option>
-            <option>Em Espera</option>
-            <option>Rejeitado</option>
-          </Form.Select>
         </Col>
         <Col md={3}>
           <Button variant="primary">Aplicar Filtros</Button>
