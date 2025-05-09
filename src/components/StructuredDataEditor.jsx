@@ -47,13 +47,13 @@ export default function StructuredDataEditor({
                 className="btn btn-primary me-2"
                 type="button"
               >
-                Save
+                Salvar
               </button>
               <button 
                 onClick={() => setEditingIndex(null)} 
                 className="btn btn-secondary"
               >
-                Cancel
+                Cancelar
               </button>
             </>
           ) : (
@@ -63,7 +63,7 @@ export default function StructuredDataEditor({
                 onClick={() => handleEdit(index)} 
                 className="btn btn-sm btn-outline-primary"
               >
-                Edit
+                Editar
               </button>
             </>
           )}
@@ -71,13 +71,12 @@ export default function StructuredDataEditor({
       ))}
 
       <div className="mt-3">
-        <h6 className="mb-2">Add New Entry</h6>
         <div className="d-flex justify-content-end">
           <input
             type="text"
             value={newEntry}
             onChange={(e) => setNewEntry(e.target.value)}
-            placeholder="Enter a new entry"
+            placeholder="Digite um novo item"
             className="form-control mb-2 me-2"
           />
           <button 
