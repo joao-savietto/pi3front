@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { HiPlus } from 'react-icons/hi';
 import { Pencil } from 'react-bootstrap-icons';
+import { Modal, Button } from 'react-bootstrap';
 
 export default function StructuredDataEditor({ 
   label, 
@@ -11,6 +12,8 @@ export default function StructuredDataEditor({
   const [editingEntry, setEditingEntry] = useState('');
   const [addEntry, setAddEntry] = useState('');
   const [editingIndex, setEditingIndex] = useState(null);
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteIndex, setDeleteIndex] = useState(null);
 
   const handleAdd = () => {
     if (addEntry.trim()) {
@@ -34,8 +37,15 @@ export default function StructuredDataEditor({
   };
 
   const handleDelete = (index) => {
-    if (window.confirm('Tem certeza que deseja excluir este item?')) {
-      onDelete(index);
+    setDeleteIndex(index);
+    setShowDeleteModal(true);
+  };
+
+  const confirmDelete = () => {
+    if (deleteIndex !== null && onDelete) {
+      onDelete(deleteIndex);
+      setShowDeleteModal(false);
+      setDeleteIndex(null);
     }
   };
 
@@ -110,6 +120,24 @@ export default function StructuredDataEditor({
           </button>
         </div>
       </div>
+
+      {/* Delete Confirmation Modal */}
+      <Modal show={showDeleteModal} onHide={() => setShowDeleteModal(false)} centered>
+        <Modal.Header closeButton>
+          <Modal.Title>Excluir Item</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Tem certeza que deseja excluir este item?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={() => setShowDeleteModal(false)}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={confirmDelete}>
+            Excluir
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </div>
   );
 }
