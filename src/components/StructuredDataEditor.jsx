@@ -52,27 +52,29 @@ export default function StructuredDataEditor({
                 onChange={(e) => setEditingEntry(e.target.value)}
                 className="form-control mb-2"
               />
-              <button 
-                onClick={handleSave} 
-                className="btn btn-primary me-2"
-                type="button"
-              >
-                Salvar
-              </button>
-              <button 
-                onClick={() => handleDelete(index)} 
-                className="btn btn-sm btn-outline-danger me-2"
-                type="button"
-              >
-                Excluir
-              </button>
-              <button 
-                onClick={() => setEditingIndex(null)} 
-                className="btn btn-secondary"
-                type="button"
-              >
-                Cancelar
-              </button>
+              <div className="d-flex">
+                <button 
+                  onClick={handleSave} 
+                  className="btn btn-primary me-2"
+                  type="button"
+                >
+                  Salvar
+                </button>
+                <button 
+                  onClick={() => setEditingIndex(null)} 
+                  className="btn btn-secondary me-2"
+                  type="button"
+                >
+                  Cancelar
+                </button>
+                <button 
+                  onClick={() => handleDelete(index)} 
+                  className="btn btn-sm btn-outline-danger ms-auto"
+                  type="button"
+                >
+                  Excluir
+                </button>
+              </div>
             </>
           ) : (
             <>
