@@ -61,13 +61,15 @@ export default function StructuredDataEditor({
             </>
           ) : (
             <>
-              <p className="mb-1">{entry || 'N/A'}</p>
-              <button 
-                onClick={() => handleEdit(index)} 
-                className="btn btn-sm btn-outline-primary"
-              >
-                <Pencil />
-              </button>
+              <div className="d-flex justify-content-end">
+                <p className="mb-1 flex-grow-1">{entry || 'N/A'}</p>
+                <button 
+                  onClick={() => handleEdit(index)} 
+                  className="btn btn-sm btn-outline-primary ms-2"
+                >
+                  <Pencil />
+                </button>
+              </div>
             </>
           )}
         </div>
