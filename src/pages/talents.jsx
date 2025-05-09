@@ -118,10 +118,10 @@ export default function TalentManagementPage() {
       // Convert structured data to JSON strings
       const payload = {
         ...newTalent,
-        experiences: JSON.stringify(newTalent.experiences),
-        educations: JSON.stringify(newTalent.educations),
-        interests: JSON.stringify(newTalent.interests),
-        accomplishments: JSON.stringify(newTalent.accomplishments)
+        experiences: newTalent.experiences || [],
+        educations: newTalent.educations || [],
+        interests: newTalent.interests || [],
+        accomplishments: newTalent.accomplishments || [],
       };
 
       await axios.post('/api/applicants/', payload);
@@ -239,9 +239,7 @@ export default function TalentManagementPage() {
               {selectedTalent.experiences?.length > 0 ? (
                 <ul>
                   {selectedTalent.experiences.map((exp, i) => (
-                    <li key={i}>
-                      {exp.company} - {exp.role} ({exp.duration})
-                    </li>
+                    <li key={i}>{exp}</li>
                   ))}
                 </ul>
               ) : (
@@ -253,9 +251,7 @@ export default function TalentManagementPage() {
               {selectedTalent.educations?.length > 0 ? (
                 <ul>
                   {selectedTalent.educations.map((edu, i) => (
-                    <li key={i}>
-                      {edu.school} - {edu.degree} ({edu.date})
-                    </li>
+                    <li key={i}>{edu}</li>
                   ))}
                 </ul>
               ) : (
@@ -267,7 +263,7 @@ export default function TalentManagementPage() {
               {selectedTalent.interests?.length > 0 ? (
                 <ul>
                   {selectedTalent.interests.map((int, i) => (
-                    <li key={i}>{int.interest}</li>
+                    <li key={i}>{int}</li>
                   ))}
                 </ul>
               ) : (
@@ -279,9 +275,7 @@ export default function TalentManagementPage() {
               {selectedTalent.accomplishments?.length > 0 ? (
                 <ul>
                   {selectedTalent.accomplishments.map((acc, i) => (
-                    <li key={i}>
-                      {acc.title}: {acc.description}
-                    </li>
+                    <li key={i}>{acc}</li>
                   ))}
                 </ul>
               ) : (
@@ -358,7 +352,6 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, experiences: updated })
               }
-              fieldConfig={{ company: "Company", role: "Role", duration: "Duration" }}
             />
 
             {/* Educations */}
@@ -368,7 +361,6 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, educations: updated })
               }
-              fieldConfig={{ school: "School", degree: "Degree", date: "Date" }}
             />
 
             {/* Interests */}
@@ -378,7 +370,6 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, interests: updated })
               }
-              fieldConfig={{ interest: "Interest" }}
             />
 
             {/* Accomplishments */}
@@ -388,7 +379,6 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, accomplishments: updated })
               }
-              fieldConfig={{ title: "Title", description: "Description" }}
             />
 
             <Form.Group controlId="formLinkedin" className="mb-3">

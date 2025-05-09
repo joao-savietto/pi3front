@@ -3,16 +3,15 @@ import React, { useState } from 'react';
 export default function StructuredDataEditor({ 
   label, 
   entries = [], 
-  onEntriesChange, 
-  fieldConfig = {} // e.g., { company: "Company", role: "Role" }
+  onEntriesChange,
 }) {
-  const [newEntry, setNewEntry] = useState({});
+  const [newEntry, setNewEntry] = useState('');
   const [editingIndex, setEditingIndex] = useState(null);
 
   const handleAdd = () => {
-    if (Object.values(newEntry).some(val => val.trim())) {
-      onEntriesChange([...entries, { ...newEntry }]);
-      setNewEntry({});
+    if (newEntry.trim()) {
+      onEntriesChange([...entries, newEntry]);
+      setNewEntry('');
     }
   };
 
@@ -21,17 +20,12 @@ export default function StructuredDataEditor({
     setNewEntry(entries[index]);
   };
 
-  const handleUpdate = (e) => {
-    const { name, value } = e.target;
-    setNewEntry({ ...newEntry, [name]: value });
-  };
-
   const handleSave = () => {
     const updatedEntries = [...entries];
     updatedEntries[editingIndex] = newEntry;
     onEntriesChange(updatedEntries);
     setEditingIndex(null);
-    setNewEntry({});
+    setNewEntry('');
   };
 
   return (
@@ -41,27 +35,17 @@ export default function StructuredDataEditor({
         <div key={index} className="mb-2 p-2 border rounded">
           {editingIndex === index ? (
             <>
-              {Object.entries(fieldConfig).map(([key, label]) => (
-                <div key={key} className="mb-1">
-                  <label>{label}</label>
-                  <input
-                    type="text"
-                    name={key}
-                    value={newEntry[key] || ''}
-                    onChange={handleUpdate}
-                  />
-                </div>
-              ))}
+              <input
+                type="text"
+                value={newEntry}
+                onChange={(e) => setNewEntry(e.target.value)}
+              />
               <button onClick={handleSave}>Save</button>
               <button onClick={() => setEditingIndex(null)}>Cancel</button>
             </>
           ) : (
             <>
-              {Object.entries(fieldConfig).map(([key, label]) => (
-                <p key={key}>
-                  <strong>{label}:</strong> {entry[key] || 'N/A'}
-                </p>
-              ))}
+              <p>{entry || 'N/A'}</p>
               <button onClick={() => handleEdit(index)}>Edit</button>
             </>
           )}
@@ -70,17 +54,12 @@ export default function StructuredDataEditor({
 
       <div className="mt-3">
         <h6>Add New Entry</h6>
-        {Object.entries(fieldConfig).map(([key, label]) => (
-          <div key={key} className="mb-1">
-            <label>{label}</label>
-            <input
-              type="text"
-              name={key}
-              value={newEntry[key] || ''}
-              onChange={handleUpdate}
-            />
-          </div>
-        ))}
+        <input
+          type="text"
+          value={newEntry}
+          onChange={(e) => setNewEntry(e.target.value)}
+          placeholder="Enter a new entry"
+        />
         <button onClick={handleAdd}>Add</button>
       </div>
     </div>
