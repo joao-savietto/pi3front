@@ -21,7 +21,8 @@ export default function StructuredDataEditor({
     setNewEntry(entries[index]);
   };
 
-  const handleSave = () => {
+  const handleSave = (e) => {
+    e.preventDefault(); // Prevent form submission
     const updatedEntries = [...entries];
     updatedEntries[editingIndex] = newEntry;
     onEntriesChange(updatedEntries);
