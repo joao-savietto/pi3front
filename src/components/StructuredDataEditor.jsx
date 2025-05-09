@@ -29,8 +29,8 @@ export default function StructuredDataEditor({
   };
 
   return (
-    <div>
-      <h5>{label}</h5>
+    <div className="mb-4">
+      <h5 className="mb-3">{label}</h5>
       {entries.map((entry, index) => (
         <div key={index} className="mb-2 p-2 border rounded">
           {editingIndex === index ? (
@@ -39,28 +39,50 @@ export default function StructuredDataEditor({
                 type="text"
                 value={newEntry}
                 onChange={(e) => setNewEntry(e.target.value)}
+                className="form-control mb-2"
               />
-              <button onClick={handleSave}>Save</button>
-              <button onClick={() => setEditingIndex(null)}>Cancel</button>
+              <button 
+                onClick={handleSave} 
+                className="btn btn-primary me-2"
+              >
+                Save
+              </button>
+              <button 
+                onClick={() => setEditingIndex(null)} 
+                className="btn btn-secondary"
+              >
+                Cancel
+              </button>
             </>
           ) : (
             <>
-              <p>{entry || 'N/A'}</p>
-              <button onClick={() => handleEdit(index)}>Edit</button>
+              <p className="mb-1">{entry || 'N/A'}</p>
+              <button 
+                onClick={() => handleEdit(index)} 
+                className="btn btn-sm btn-outline-primary"
+              >
+                Edit
+              </button>
             </>
           )}
         </div>
       ))}
 
       <div className="mt-3">
-        <h6>Add New Entry</h6>
+        <h6 className="mb-2">Add New Entry</h6>
         <input
           type="text"
           value={newEntry}
           onChange={(e) => setNewEntry(e.target.value)}
           placeholder="Enter a new entry"
+          className="form-control mb-2"
         />
-        <button onClick={handleAdd}>Add</button>
+        <button 
+          onClick={handleAdd} 
+          className="btn btn-success"
+        >
+          Add
+        </button>
       </div>
     </div>
   );
