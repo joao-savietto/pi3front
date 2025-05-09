@@ -6,6 +6,7 @@ export default function StructuredDataEditor({
   label, 
   entries = [], 
   onEntriesChange,
+  onDelete
 }) {
   const [editingEntry, setEditingEntry] = useState('');
   const [addEntry, setAddEntry] = useState('');
@@ -32,6 +33,12 @@ export default function StructuredDataEditor({
     setEditingEntry('');
   };
 
+  const handleDelete = (index) => {
+    if (window.confirm('Tem certeza que deseja excluir este item?')) {
+      onDelete(index);
+    }
+  };
+
   return (
     <div className="mb-4">
       <h5 className="mb-3">{label}</h5>
@@ -53,8 +60,16 @@ export default function StructuredDataEditor({
                 Salvar
               </button>
               <button 
+                onClick={() => handleDelete(index)} 
+                className="btn btn-sm btn-outline-danger me-2"
+                type="button"
+              >
+                Excluir
+              </button>
+              <button 
                 onClick={() => setEditingIndex(null)} 
                 className="btn btn-secondary"
+                type="button"
               >
                 Cancelar
               </button>
