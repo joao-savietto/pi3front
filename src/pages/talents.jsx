@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Form, Button, Container, Row, Col, Modal, Alert } from 'react-bootstrap';
 import useAxios from '../services/hooks/useAxios';
+import StructuredDataEditor from '../components/StructuredDataEditor';
 
 export default function TalentManagementPage() {
   const axios = useAxios();
@@ -16,10 +17,10 @@ export default function TalentManagementPage() {
     name: '',
     contacts: '',
     about: '',
-    experiences: '',
-    educations: '',
-    interests: '',
-    accomplishments: '',
+    experiences: [],
+    educations: [],
+    interests: [],
+    accomplishments: [],
     linkedin: ''
   });
 
@@ -114,7 +115,16 @@ export default function TalentManagementPage() {
         return;
       }
 
-      await axios.post('/api/applicants/', newTalent);
+      // Convert structured data to JSON strings
+      const payload = {
+        ...newTalent,
+        experiences: JSON.stringify(newTalent.experiences),
+        educations: JSON.stringify(newTalent.educations),
+        interests: JSON.stringify(newTalent.interests),
+        accomplishments: JSON.stringify(newTalent.accomplishments)
+      };
+
+      await axios.post('/api/applicants/', payload);
       setTalents([...talents, { ...newTalent, id: Date.now() }]);
       setFilteredTalents([...filteredTalents, { ...newTalent, id: Date.now() }]);
       setShowAddModal(false);
@@ -122,10 +132,10 @@ export default function TalentManagementPage() {
         name: '',
         contacts: '',
         about: '',
-        experiences: '',
-        educations: '',
-        interests: '',
-        accomplishments: '',
+        experiences: [],
+        educations: [],
+        interests: [],
+        accomplishments: [],
         linkedin: ''
       });
     } catch (err) {
@@ -219,14 +229,64 @@ export default function TalentManagementPage() {
           {selectedTalent && (
             <div>
               <p><strong>Sobre:</strong> {selectedTalent.about}</p>
-              <p><strong>Experiências:</strong> {selectedTalent.experiences}</p>
-              <p><strong>Educação:</strong> {selectedTalent.educations}</p>
-              <p><strong>Interesses:</strong> {selectedTalent.interests}</p>
-              <p><strong>Conquistas:</strong> {selectedTalent.accomplishments}</p>
               <p><strong>Contatos:</strong> {selectedTalent.contacts}</p>
               <p><strong>LinkedIn:</strong> {selectedTalent.linkedin || 'N/A'}</p>
               <p><strong>Criado Em:</strong> {formatDate(selectedTalent.created_at)}</p>
               <p><strong>Atualizado Em:</strong> {formatDate(selectedTalent.updated_at)}</p>
+
+              {/* Experiences */}
+              <h5>Experiências</h5>
+              {selectedTalent.experiences?.length > 0 ? (
+                <ul>
+                  {selectedTalent.experiences.map((exp, i) => (
+                    <li key={i}>
+                      {exp.company} - {exp.role} ({exp.duration})
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhuma experiência registrada</p>
+              )}
+
+              {/* Educations */}
+              <h5>Educação</h5>
+              {selectedTalent.educations?.length > 0 ? (
+                <ul>
+                  {selectedTalent.educations.map((edu, i) => (
+                    <li key={i}>
+                      {edu.school} - {edu.degree} ({edu.date})
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhuma educação registrada</p>
+              )}
+
+              {/* Interests */}
+              <h5>Interesses</h5>
+              {selectedTalent.interests?.length > 0 ? (
+                <ul>
+                  {selectedTalent.interests.map((int, i) => (
+                    <li key={i}>{int.interest}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhum interesse registrado</p>
+              )}
+
+              {/* Accomplishments */}
+              <h5>Conquistas</h5>
+              {selectedTalent.accomplishments?.length > 0 ? (
+                <ul>
+                  {selectedTalent.accomplishments.map((acc, i) => (
+                    <li key={i}>
+                      {acc.title}: {acc.description}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhuma conquista registrada</p>
+              )}
             </div>
           )}
         </Modal.Body>
@@ -291,49 +351,45 @@ export default function TalentManagementPage() {
               />
             </Form.Group>
 
-            <Form.Group controlId="formExperiences" className="mb-3">
-              <Form.Label>Experiências</Form.Label>
-              <Form.Control
-                type="text"
-                name="experiences"
-                value={newTalent.experiences}
-                onChange={handleAddInputChange}
-                placeholder="Digite as experiências do talento"
-              />
-            </Form.Group>
+            {/* Experiences */}
+            <StructuredDataEditor
+              label="Experiências"
+              entries={newTalent.experiences || []}
+              onEntriesChange={(updated) =>
+                setNewTalent({ ...newTalent, experiences: updated })
+              }
+              fieldConfig={{ company: "Company", role: "Role", duration: "Duration" }}
+            />
 
-            <Form.Group controlId="formEducations" className="mb-3">
-              <Form.Label>Educação</Form.Label>
-              <Form.Control
-                type="text"
-                name="educations"
-                value={newTalent.educations}
-                onChange={handleAddInputChange}
-                placeholder="Digite a educação do talento"
-              />
-            </Form.Group>
+            {/* Educations */}
+            <StructuredDataEditor
+              label="Educação"
+              entries={newTalent.educations || []}
+              onEntriesChange={(updated) =>
+                setNewTalent({ ...newTalent, educations: updated })
+              }
+              fieldConfig={{ school: "School", degree: "Degree", date: "Date" }}
+            />
 
-            <Form.Group controlId="formInterests" className="mb-3">
-              <Form.Label>Interesses</Form.Label>
-              <Form.Control
-                type="text"
-                name="interests"
-                value={newTalent.interests}
-                onChange={handleAddInputChange}
-                placeholder="Digite os interesses do talento"
-              />
-            </Form.Group>
+            {/* Interests */}
+            <StructuredDataEditor
+              label="Interesses"
+              entries={newTalent.interests || []}
+              onEntriesChange={(updated) =>
+                setNewTalent({ ...newTalent, interests: updated })
+              }
+              fieldConfig={{ interest: "Interest" }}
+            />
 
-            <Form.Group controlId="formAccomplishments" className="mb-3">
-              <Form.Label>Conquistas</Form.Label>
-              <Form.Control
-                type="text"
-                name="accomplishments"
-                value={newTalent.accomplishments}
-                onChange={handleAddInputChange}
-                placeholder="Digite as conquistas do talento"
-              />
-            </Form.Group>
+            {/* Accomplishments */}
+            <StructuredDataEditor
+              label="Conquistas"
+              entries={newTalent.accomplishments || []}
+              onEntriesChange={(updated) =>
+                setNewTalent({ ...newTalent, accomplishments: updated })
+              }
+              fieldConfig={{ title: "Title", description: "Description" }}
+            />
 
             <Form.Group controlId="formLinkedin" className="mb-3">
               <Form.Label>LinkedIn</Form.Label>
