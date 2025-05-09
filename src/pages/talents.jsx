@@ -352,6 +352,11 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, experiences: updated })
               }
+              onDelete={(index) => {
+                const updated = [...newTalent.experiences];
+                updated.splice(index, 1);
+                setNewTalent({ ...newTalent, experiences: updated });
+              }}
             />
 
             {/* Educations */}
@@ -361,6 +366,11 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, educations: updated })
               }
+              onDelete={(index) => {
+                const updated = [...newTalent.educations];
+                updated.splice(index, 1);
+                setNewTalent({ ...newTalent, educations: updated });
+              }}
             />
 
             {/* Interests */}
@@ -370,6 +380,11 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, interests: updated })
               }
+              onDelete={(index) => {
+                const updated = [...newTalent.interests];
+                updated.splice(index, 1);
+                setNewTalent({ ...newTalent, interests: updated });
+              }}
             />
 
             {/* Accomplishments */}
@@ -379,6 +394,11 @@ export default function TalentManagementPage() {
               onEntriesChange={(updated) =>
                 setNewTalent({ ...newTalent, accomplishments: updated })
               }
+              onDelete={(index) => {
+                const updated = [...newTalent.accomplishments];
+                updated.splice(index, 1);
+                setNewTalent({ ...newTalent, accomplishments: updated });
+              }}
             />
 
             <Form.Group controlId="formLinkedin" className="mb-3">
