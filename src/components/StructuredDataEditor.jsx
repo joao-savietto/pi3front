@@ -44,6 +44,7 @@ export default function StructuredDataEditor({
               <button 
                 onClick={handleSave} 
                 className="btn btn-primary me-2"
+                type="button"
               >
                 Save
               </button>
@@ -80,6 +81,7 @@ export default function StructuredDataEditor({
         <button 
           onClick={handleAdd} 
           className="btn btn-success"
+          type="button"
         >
           Add
         </button>
