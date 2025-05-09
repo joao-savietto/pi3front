@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { HiPlus } from 'react-icons/hi';
+import { Pencil } from 'react-bootstrap-icons';
 
 export default function StructuredDataEditor({ 
   label, 
@@ -65,7 +66,7 @@ export default function StructuredDataEditor({
                 onClick={() => handleEdit(index)} 
                 className="btn btn-sm btn-outline-primary"
               >
-                Editar
+                <Pencil />
               </button>
             </>
           )}
