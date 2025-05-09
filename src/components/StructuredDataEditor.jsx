@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { HiPlus } from 'react-icons/hi';
 
 export default function StructuredDataEditor({ 
   label, 
@@ -71,20 +72,22 @@ export default function StructuredDataEditor({
 
       <div className="mt-3">
         <h6 className="mb-2">Add New Entry</h6>
-        <input
-          type="text"
-          value={newEntry}
-          onChange={(e) => setNewEntry(e.target.value)}
-          placeholder="Enter a new entry"
-          className="form-control mb-2"
-        />
-        <button 
-          onClick={handleAdd} 
-          className="btn btn-success"
-          type="button"
-        >
-          Add
-        </button>
+        <div className="d-flex justify-content-end">
+          <input
+            type="text"
+            value={newEntry}
+            onChange={(e) => setNewEntry(e.target.value)}
+            placeholder="Enter a new entry"
+            className="form-control mb-2 me-2"
+          />
+          <button 
+            onClick={handleAdd} 
+            className="btn btn-success"
+            type="button"
+          >
+            <HiPlus />
+          </button>
+        </div>
       </div>
     </div>
   );
