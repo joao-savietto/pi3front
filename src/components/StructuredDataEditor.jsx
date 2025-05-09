@@ -6,28 +6,29 @@ export default function StructuredDataEditor({
   entries = [], 
   onEntriesChange,
 }) {
-  const [newEntry, setNewEntry] = useState('');
+  const [editingEntry, setEditingEntry] = useState('');
+  const [addEntry, setAddEntry] = useState('');
   const [editingIndex, setEditingIndex] = useState(null);
 
   const handleAdd = () => {
-    if (newEntry.trim()) {
-      onEntriesChange([...entries, newEntry]);
-      setNewEntry('');
+    if (addEntry.trim()) {
+      onEntriesChange([...entries, addEntry]);
+      setAddEntry('');
     }
   };
 
   const handleEdit = (index) => {
     setEditingIndex(index);
-    setNewEntry(entries[index]);
+    setEditingEntry(entries[index]);
   };
 
   const handleSave = (e) => {
     e.preventDefault(); // Prevent form submission
     const updatedEntries = [...entries];
-    updatedEntries[editingIndex] = newEntry;
+    updatedEntries[editingIndex] = editingEntry;
     onEntriesChange(updatedEntries);
     setEditingIndex(null);
-    setNewEntry('');
+    setEditingEntry('');
   };
 
   return (
@@ -39,8 +40,8 @@ export default function StructuredDataEditor({
             <>
               <input
                 type="text"
-                value={newEntry}
-                onChange={(e) => setNewEntry(e.target.value)}
+                value={editingEntry}
+                onChange={(e) => setEditingEntry(e.target.value)}
                 className="form-control mb-2"
               />
               <button 
@@ -75,8 +76,8 @@ export default function StructuredDataEditor({
         <div className="d-flex justify-content-end">
           <input
             type="text"
-            value={newEntry}
-            onChange={(e) => setNewEntry(e.target.value)}
+            value={addEntry}
+            onChange={(e) => setAddEntry(e.target.value)}
             placeholder="Digite um novo item"
             className="form-control mb-2 me-2"
           />
