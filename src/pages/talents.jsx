@@ -42,6 +42,10 @@ export default function TalentManagementPage() {
 
   // Format date for display
   const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date)) {
+      return 'Invalid Date';
+    }
     return new Date(dateString).toLocaleDateString('pt-BR', {
       year: 'numeric',
       month: 'short',
@@ -193,8 +197,8 @@ export default function TalentManagementPage() {
               <td>{talent.name}</td>
               <td>{talent.contacts || 'N/A'}</td>
               <td>{talent.about || 'Nenhuma descrição disponível'}</td>
-              <td>{formatDate(talent.created_at)}</td>
-              <td>{formatDate(talent.updated_at)}</td>
+              <td>{talent.created_at ? formatDate(talent.created_at) : 'N/A'}</td>
+              <td>{talent.updated_at ? formatDate(talent.updated_at) : 'N/A'}</td>
               <td>
                 <Button 
                   variant="outline-secondary" 
