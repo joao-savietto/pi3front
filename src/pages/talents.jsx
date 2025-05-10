@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { Table, Form, Button, Container, Row, Col, Modal, Alert } from 'react-bootstrap';
+import { Search } from 'react-bootstrap-icons'; // Import the search icon
 import useAxios from '../services/hooks/useAxios';
 import StructuredDataEditor from '../components/StructuredDataEditor';
 
@@ -163,11 +164,16 @@ export default function TalentManagementPage() {
             value={searchQuery}
             onChange={handleSearchChange}
             onKeyDown={handleKeyDown}
+            className="form-control-lg" // Make the search bar bigger
           />
         </Col>
         <Col md={3}>
-          <Button variant="primary" onClick={applyFilter}>
-            Aplicar Filtros
+          <Button 
+            variant="primary" 
+            size="sm" // Make the button smaller
+            onClick={applyFilter}
+          >
+            <Search /> {/* Use magnifying glass icon */}
           </Button>
         </Col>
       </Row>
