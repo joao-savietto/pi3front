@@ -37,7 +37,12 @@ export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderCo
               {cards
                 .filter((card) => card.columnId === column.id)
                 .map((card, index) => (
-                  <Card key={card.id} card={card} index={index} />
+                  <Card
+                    key={card.id}
+                    card={card}
+                    index={index}
+                    renderCard={renderCard}
+                  />
                 ))}
             </SortableContext>
             <button
@@ -53,7 +58,7 @@ export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderCo
   );
 }
 
-function Card({ card, index }) {
+function Card({ card, index, renderCard }) {
   const { attributes, listeners, setNodeRef, transform } = useSortable({
     id: card.id,
   });
