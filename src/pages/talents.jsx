@@ -157,25 +157,23 @@ export default function TalentManagementPage() {
       
       {/* Search and Filters */}
       <Row className="mb-3 d-flex align-items-center">
-        <Col md={9} className="pe-0">
+        <div className="d-flex align-items-center w-100">
           <Form.Control
             type="text"
             placeholder="Pesquisar por nome..."
             value={searchQuery}
             onChange={handleSearchChange}
             onKeyDown={handleKeyDown}
-            className="form-control-lg" // Make the search bar bigger
+            className="form-control-lg flex-grow-1 me-2"
           />
-        </Col>
-        <Col md={3} className="ps-0">
           <Button 
             variant="primary" 
-            size="sm" // Make the button smaller
+            size="lg"
             onClick={applyFilter}
           >
             <Search /> {/* Use magnifying glass icon */}
           </Button>
-        </Col>
+        </div>
       </Row>
 
       {/* Add Talent Button */}
