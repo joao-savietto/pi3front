@@ -41,8 +41,7 @@ Quality.
                                                                                                                                            
 ### Level 2: Individual Selection Process Page/Modal (Participation Kanban)                                                                
                                                                                                                                            
-*   **Header:** Displays the name/details of the specific `Selection Process`.                                                             
-*   **Columns:** Based on `ApplicationStep` enum:                                                                                          
+*   **Layout:** Kanban board with columns based on `ApplicationStep` enum:                                                                  
     *   Hunting                                                            
     *   Database                                                           
     *   HR Interview                                                       
@@ -128,3 +127,34 @@ Quality.
 ## MVP Scope                                                                                                                               
 Focus on implementing the two-level Kanban structure, basic CRUD operations (Create, Read, Update, Delete) for Processes and Talents, and  
 managing Participations within this framework. Implement core navigation and status tracking.
+
+## Kanban Implementation Plan
+
+### 1. **Reusable Kanban Component**
+- Build a single-level, Trello-like Kanban component that:
+  - Accepts `columns` (e.g., process categories or application steps) and `cards` (e.g., selection processes or participations).
+  - Supports drag-and-drop between columns.
+  - Allows adding new cards to a column.
+
+### 2. **Page-Based Level Separation**
+- **Home Page**:
+  - Displays the first-level Kanban (Process Categories → Selection Processes).
+  - Each card represents a `Selection Process`.
+  - Clicking a card opens a modal with details and a button to navigate to the second page.
+  
+- **Second Page** (e.g., `/selection-process/:id`):
+  - Displays the second-level Kanban (Application Steps → Participations).
+  - Each card represents a `Participation`.
+
+### 3. **Modal on First Level**
+- When a user clicks a `Selection Process` card, show a modal with:
+  - Basic info (title, description, participant count).
+  - A "View Details" button to navigate to the second page.
+
+### 4. **Navigation Between Pages**
+- Use React Router or similar to handle navigation between:
+  - `/` (Home Page) → `/selection-process/:id` (Second Level).
+
+### 5. **Data Flow**
+- The first-level Kanban displays `SelectionProcess` data.
+- The second-level Kanban fetches and displays `Participation` data for the selected process.
