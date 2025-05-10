@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import useAxios from '../services/hooks/useAxios';
-import Kanban from '../components/Kanban';
+import KanbanV2 from '../components/KanbanV2';
 
 export default function EmptyHome() {
   const axios = useAxios();
@@ -63,16 +63,16 @@ export default function EmptyHome() {
   return (
     <div className="container mt-5">
       <h2>Selection Processes</h2>
-      <Kanban
+      <KanbanV2
         columns={processCategories}
         cards={cards}
         onAddCard={handleAddCard}
         onMoveCard={handleMoveCard}
         renderColumnHeader={(column) => (
-          <h3 className="mb-0 text-primary font-weight-bold">{column.title}</h3>
+          <h3 className="kanban-header">{column.title}</h3> // Updated class name
         )}
         renderCard={(card, columnId) => (
-          <div className="p-2 bg-light rounded">
+          <div className="kanban-card">
             <strong>{card.content}</strong>
           </div>
         )}

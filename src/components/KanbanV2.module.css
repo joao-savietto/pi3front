@@ -1,0 +1,49 @@
+/* Base styles */
+.kanban-board {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 16px;
+  padding: 20px;
+}
+
+.kanban-column {
+  background-color: #f5f5f5;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  min-height: 300px;
+}
+
+.kanban-header {
+  padding: 12px 16px;
+  font-weight: bold;
+  color: #333;
+  border-bottom: 1px solid #ddd;
+  margin: 0;
+}
+
+/* Card styles */
+.kanban-card {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  margin: 8px 12px;
+  cursor: grab;
+}
+
+/* Add button styles */
+.kanban-add-button {
+  margin: 0 12px 12px 12px;
+  padding: 6px 12px;
+  background-color: #e9ecef;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+}
+
+.kanban-add-button:hover {
+  background-color: #dee2e6;
+}
