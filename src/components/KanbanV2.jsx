@@ -48,13 +48,15 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
                 ))}
             </SortableContext>
 
-            {/* Add Card Button */}
-            <button
-              onClick={() => onAddCard(column.id)}
-              className="kanban-add-button"
-            >
-              + Add Card
-            </button>
+            {/* Add Card Button Container */}
+            <div className="kanban-add-button-container">
+              <button
+                onClick={() => onAddCard(column.id)}
+                className="kanban-add-button"
+              >
+                + Adicionar Cartão
+              </button>
+            </div>
           </div>
         ))}
       </div>
