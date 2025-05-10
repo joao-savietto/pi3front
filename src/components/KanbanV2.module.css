@@ -1,9 +1,15 @@
 /* Base styles */
 .kanban-board {
   display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
   gap: 16px;
   padding: 20px;
+}
+
+/* Use CSS Grid for responsive layout */
+@media (min-width: 768px) {
+  .kanban-board {
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  }
 }
 
 .kanban-column {
