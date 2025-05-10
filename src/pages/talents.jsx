@@ -98,7 +98,7 @@ export default function TalentManagementPage() {
     }
   };
 
-  // Handle form input changes for adding a new talent
+  // Handle form input changes for adding/editing a talent
   const handleAddInputChange = (e) => {
     const { name, value } = e.target;
     setNewTalent({
@@ -107,7 +107,7 @@ export default function TalentManagementPage() {
     });
   };
 
-  // Submit the new talent form
+  // Submit the new or edited talent form
   const handleSubmitAdd = async () => {
     try {
       // Check if all fields are empty
@@ -129,9 +129,18 @@ export default function TalentManagementPage() {
         accomplishments: newTalent.accomplishments || [],
       };
 
-      await axios.post('/api/applicants/', payload);
-      setTalents([...talents, { ...newTalent, id: Date.now() }]);
-      setFilteredTalents([...filteredTalents, { ...newTalent, id: Date.now() }]);
+      if (selectedTalent && selectedTalent.id) {
+        // Update existing talent
+        await axios.put(`/api/applicants/${selectedTalent.id}/`, payload);
+        setTalents(talents.map(t => t.id === selectedTalent.id ? { ...t, ...payload } : t));
+        setFilteredTalents(filteredTalents.map(t => t.id === selectedTalent.id ? { ...t, ...payload } : t));
+      } else {
+        // Create new talent
+        const response = await axios.post('/api/applicants/', payload);
+        setTalents([...talents, { ...newTalent, id: response.data.id }]);
+        setFilteredTalents([...filteredTalents, { ...newTalent, id: response.data.id }]);
+      }
+
       setShowAddModal(false);
       setNewTalent({
         name: '',
@@ -143,8 +152,9 @@ export default function TalentManagementPage() {
         accomplishments: [],
         linkedin: ''
       });
+      setSelectedTalent(null);
     } catch (err) {
-      setError('Falha ao adicionar o talento. Por favor, tente novamente.');
+      setError('Falha ao adicionar/editar o talento. Por favor, tente novamente.');
       console.error(err);
     }
   };
@@ -178,7 +188,20 @@ export default function TalentManagementPage() {
 
       {/* Add Talent Button */}
       <div className="d-flex justify-content-end mt-3">
-        <Button variant="success" onClick={() => setShowAddModal(true)}>
+        <Button variant="success" onClick={() => {
+          setShowAddModal(true);
+          setNewTalent({
+            name: '',
+            contacts: '',
+            about: '',
+            experiences: [],
+            educations: [],
+            interests: [],
+            accomplishments: [],
+            linkedin: ''
+          });
+          setSelectedTalent(null);
+        }}>
           Adicionar Talentos
         </Button>
       </div>
@@ -213,6 +236,27 @@ export default function TalentManagementPage() {
                   }}
                 >
                   Ver
+                </Button>
+                <Button 
+                  variant="outline-primary" 
+                  size="sm" 
+                  className="ms-2"
+                  onClick={() => {
+                    setNewTalent({
+                      name: talent.name,
+                      contacts: talent.contacts,
+                      about: talent.about,
+                      experiences: talent.experiences || [],
+                      educations: talent.educations || [],
+                      interests: talent.interests || [],
+                      accomplishments: talent.accomplishments || [],
+                      linkedin: talent.linkedin
+                    });
+                    setShowAddModal(true);
+                    setSelectedTalent(talent);
+                  }}
+                >
+                  Editar
                 </Button>
                 <Button 
                   variant="outline-danger" 
@@ -313,9 +357,22 @@ export default function TalentManagementPage() {
       </Modal>
 
       {/* Add Talent Modal */}
-      <Modal show={showAddModal} onHide={() => setShowAddModal(false)} centered>
+      <Modal show={showAddModal} onHide={() => {
+        setShowAddModal(false);
+        setNewTalent({
+          name: '',
+          contacts: '',
+          about: '',
+          experiences: [],
+          educations: [],
+          interests: [],
+          accomplishments: [],
+          linkedin: ''
+        });
+        setSelectedTalent(null);
+      }} centered>
         <Modal.Header closeButton>
-          <Modal.Title>Adicionar Novo Talentos</Modal.Title>
+          <Modal.Title>{selectedTalent ? "Editar Talentos" : "Adicionar Novo Talentos"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
@@ -422,11 +479,24 @@ export default function TalentManagementPage() {
           </Form>
         </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={() => setShowAddModal(false)}>
+          <Button variant="secondary" onClick={() => {
+            setShowAddModal(false);
+            setNewTalent({
+              name: '',
+              contacts: '',
+              about: '',
+              experiences: [],
+              educations: [],
+              interests: [],
+              accomplishments: [],
+              linkedin: ''
+            });
+            setSelectedTalent(null);
+          }}>
             Cancelar
           </Button>
           <Button variant="success" onClick={handleSubmitAdd}>
-            Adicionar
+            {selectedTalent ? "Atualizar" : "Adicionar"}
           </Button>
         </Modal.Footer>
       </Modal>
