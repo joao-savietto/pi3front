@@ -1,66 +1,76 @@
 import React from 'react';
-import { DndProvider, DragDropContext, Droppable, Draggable } from 'react-beautiful-dnd';
+import { DndContext, closestCenter } from '@dnd-kit/core';
+import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderColumnHeader, renderCard }) {
-  const handleDragEnd = (result) => {
-    if (!result.destination) return;
+  const handleDragEnd = (event) => {
+    const { active, over } = event;
 
-    const { source, destination } = result;
-    const card = cards.find((card) => card.id === result.draggableId);
+    if (!over || active.id === over.id) return;
 
-    if (source.droppableId !== destination.droppableId && card) {
-      onMoveCard(source.droppableId, destination.droppableId, card);
+    const activeCard = cards.find((card) => card.id === active.id);
+    const overColumnId = over.data.current?.sortable.containerId;
+
+    if (activeCard && overColumnId) {
+      onMoveCard(active.id, overColumnId, activeCard);
     }
   };
 
   return (
-    <DndProvider>
-      <DragDropContext onDragEnd={handleDragEnd}>
-        <div className="kanban-board">
-          {columns.map((column) => (
-            <div key={column.id} className="kanban-column">
-              {renderColumnHeader ? (
-                renderColumnHeader(column)
-              ) : (
-                <h3>{column.title}</h3>
-              )}
-              <Droppable droppableId={column.id}>
-                {(provided) => (
-                  <div
-                    {...provided.droppableProps}
-                    ref={provided.innerRef}
-                    className="kanban-column-content"
-                  >
-                    {cards
-                      .filter((card) => card.columnId === column.id)
-                      .map((card, index) => (
-                        <Draggable key={card.id} draggableId={card.id} index={index}>
-                          {(provided) => (
-                            <div
-                              {...provided.draggableProps}
-                              {...provided.dragHandleProps}
-                              ref={provided.innerRef}
-                              className="kanban-card"
-                            >
-                              {renderCard ? renderCard(card, column.id) : <div>{card.content}</div>}
-                            </div>
-                          )}
-                        </Draggable>
-                      ))}
-                    {provided.placeholder}
-                  </div>
-                )}
-              </Droppable>
-              <button
-                onClick={() => onAddCard(column.id)}
-                className="btn btn-outline-primary mt-2"
-              >
-                Add Card
-              </button>
-            </div>
-          ))}
-        </div>
-      </DragDropContext>
-    </DndProvider>
+    <DndContext
+      collisionDetection={closestCenter}
+      onDragEnd={handleDragEnd}
+    >
+      <div className="kanban-board">
+        {columns.map((column) => (
+          <div key={column.id} className="kanban-column">
+            {renderColumnHeader ? (
+              renderColumnHeader(column)
+            ) : (
+              <h3>{column.title}</h3>
+            )}
+            <SortableContext
+              items={cards.filter((card) => card.columnId === column.id).map((c) => c.id)}
+              strategy={verticalListSortingStrategy}
+            >
+              {cards
+                .filter((card) => card.columnId === column.id)
+                .map((card, index) => (
+                  <Card key={card.id} card={card} index={index} />
+                ))}
+            </SortableContext>
+            <button
+              onClick={() => onAddCard(column.id)}
+              className="btn btn-outline-primary mt-2"
+            >
+              Add Card
+            </button>
+          </div>
+        ))}
+      </div>
+    </DndContext>
+  );
+}
+
+function Card({ card, index }) {
+  const { attributes, listeners, setNodeRef, transform } = useSortable({
+    id: card.id,
+  });
+
+  const style = {
+    ...attributes.style,
+    transform: CSS.Transform.toString(transform),
+  };
+
+  return (
+    <div
+      ref={setNodeRef}
+      style={style}
+      {...listeners}
+      className="kanban-card"
+    >
+      {renderCard ? renderCard(card, card.columnId) : <div>{card.content}</div>}
+    </div>
   );
 }
