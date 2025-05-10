@@ -1,0 +1,18 @@
+.kanban-board {
+  display: flex;
+  gap: 1rem; /* Space between columns */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  padding: 1rem 0; /* Optional vertical spacing */
+}
+
+.kanban-column {
+  min-width: 300px; /* Minimum width for each column */
+  flex-grow: 1;     /* Allow columns to grow and fill space */
+  background-color: #f5f5f5; /* Light grey background for visibility */
+  padding: 0.5rem;
+  border-radius: 4px;
+}
+
+.kanban-card {
+   min-height: 60px; /* Minimum height for cards */
+}

@@ -3,6 +3,9 @@ import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 
+// Import the component-specific styles
+import styles from './Kanban.module.css'; // Adjust path if necessary
+
 export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderColumnHeader, renderCard }) {
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -22,9 +25,10 @@ export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderCo
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <div className="kanban-board">
+      {/* Apply the board styles */}
+      <div className={styles.kanbanBoard}>
         {columns.map((column) => (
-          <div key={column.id} className="kanban-column">
+          <div key={column.id} className={styles.kanbanColumn}>
             {/* Column Header */}
             {renderColumnHeader ? (
               renderColumnHeader(column)
@@ -78,7 +82,7 @@ function Card({ card, index, renderCard }) {
       ref={setNodeRef}
       style={style}
       {...listeners}
-      className="kanban-card bg-white rounded shadow-sm p-3 mb-2"
+      className={`${styles.kanbanCard} bg-white rounded shadow-sm p-3 mb-2`}
     >
       {renderCard ? renderCard(card, card.columnId) : (
         <div>
