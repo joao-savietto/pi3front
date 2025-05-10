@@ -156,8 +156,8 @@ export default function TalentManagementPage() {
       <h2>Gestão de Talentos</h2>
       
       {/* Search and Filters */}
-      <Row className="mb-3">
-        <Col md={9}>
+      <Row className="mb-3 d-flex align-items-center">
+        <Col md={9} className="pe-0">
           <Form.Control
             type="text"
             placeholder="Pesquisar por nome..."
@@ -167,7 +167,7 @@ export default function TalentManagementPage() {
             className="form-control-lg" // Make the search bar bigger
           />
         </Col>
-        <Col md={3}>
+        <Col md={3} className="ps-0">
           <Button 
             variant="primary" 
             size="sm" // Make the button smaller
