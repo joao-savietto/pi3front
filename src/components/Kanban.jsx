@@ -4,7 +4,7 @@ import { SortableContext, useSortable, verticalListSortingStrategy } from '@dnd-
 import { CSS } from '@dnd-kit/utilities';
 
 // Import the component-specific styles
-import styles from './Kanban.module.css'; // Adjust path if necessary
+import styles from "./styles/Kanban.css"
 
 export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderColumnHeader, renderCard }) {
   const handleDragEnd = (event) => {
