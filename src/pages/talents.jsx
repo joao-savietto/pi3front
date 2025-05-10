@@ -131,7 +131,7 @@ export default function TalentManagementPage() {
 
       if (selectedTalent && selectedTalent.id) {
         // Update existing talent
-        await axios.put(`/api/applicants/${selectedTalent.id}/`, payload);
+        await axios.patch(`/api/applicants/${selectedTalent.id}/`, payload);
         setTalents(talents.map(t => t.id === selectedTalent.id ? { ...t, ...payload } : t));
         setFilteredTalents(filteredTalents.map(t => t.id === selectedTalent.id ? { ...t, ...payload } : t));
       } else {
@@ -372,7 +372,7 @@ export default function TalentManagementPage() {
         setSelectedTalent(null);
       }} centered>
         <Modal.Header closeButton>
-          <Modal.Title>{selectedTalent ? "Editar Talentos" : "Adicionar Novo Talentos"}</Modal.Title>
+          <Modal.Title>{selectedTalent ? "Editar Talentos" : "Adicionar Novo Talento"}</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
