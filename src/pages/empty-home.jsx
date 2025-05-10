@@ -41,7 +41,7 @@ export default function EmptyHome() {
   // Format cards for Kanban
   const cards = selectionProcesses.map((process) => ({
     id: process.id,
-    content: `${process.description} (ID: ${process.id})`,
+    content: `${process.title} (ID: ${process.id})`,
     columnId: process.category
   }));
 
@@ -69,7 +69,7 @@ export default function EmptyHome() {
         onAddCard={handleAddCard}
         onMoveCard={handleMoveCard}
         renderColumnHeader={(column) => (
-          <h3 className="mb-0">{column.title}</h3>
+          <h3 className="mb-0 text-primary font-weight-bold">{column.title}</h3>
         )}
         renderCard={(card, columnId) => (
           <div className="p-2 bg-light rounded">

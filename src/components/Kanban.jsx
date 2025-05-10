@@ -25,11 +25,14 @@ export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderCo
       <div className="kanban-board">
         {columns.map((column) => (
           <div key={column.id} className="kanban-column">
+            {/* Column Header */}
             {renderColumnHeader ? (
               renderColumnHeader(column)
             ) : (
-              <h3>{column.title}</h3>
+              <h3 className="mb-0 text-primary font-weight-bold">{column.title}</h3>
             )}
+
+            {/* Cards List */}
             <SortableContext
               items={cards.filter((card) => card.columnId === column.id).map((c) => c.id)}
               strategy={verticalListSortingStrategy}
@@ -45,11 +48,13 @@ export default function Kanban({ columns, cards, onAddCard, onMoveCard, renderCo
                   />
                 ))}
             </SortableContext>
+
+            {/* Add Card Button */}
             <button
               onClick={() => onAddCard(column.id)}
-              className="btn btn-outline-primary mt-2"
+              className="btn btn-outline-primary mt-2 w-100"
             >
-              Add Card
+              + Add Card
             </button>
           </div>
         ))}
@@ -73,9 +78,13 @@ function Card({ card, index, renderCard }) {
       ref={setNodeRef}
       style={style}
       {...listeners}
-      className="kanban-card"
+      className="kanban-card bg-white rounded shadow-sm p-3 mb-2"
     >
-      {renderCard ? renderCard(card, card.columnId) : <div>{card.content}</div>}
+      {renderCard ? renderCard(card, card.columnId) : (
+        <div>
+          <strong>{card.content}</strong>
+        </div>
+      )}
     </div>
   );
 }
