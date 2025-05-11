@@ -77,7 +77,7 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
               {cards
                 .filter((card) => card.columnId === column.id)
                 .map((card, index) => (
-                  <div key={card.id} className="kanban-card" data-id={card.id}>
+                  <div key={card.id} className="card"> {/* Changed to just "card" */}
                     {renderCard ? renderCard(card, card.columnId) : (
                       <div>{card.content}</div>
                     )}

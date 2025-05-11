@@ -9,16 +9,17 @@
   background-color: red !important;
 }
 
-.kanban-column {
-  background-color: #f5f5f5;
-  border-radius: 8px;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-  min-height: 300px;
-  margin-right: 20px; /* Space between columns */
-  flex-shrink: 0; /* Prevent columns from shrinking */
-  min-width: 250px; /* Minimum width for each column */
+/* Apply kanban-card styles directly to the component's div */
+.kanban-column > .card {
+  background-color: white;
+  border-radius: 4px;
+  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+  padding: 16px;
+  margin: 8px 12px;
+  cursor: grab;
 }
 
+/* Column Header */
 .kanban-header {
   padding: 12px 16px;
   font-weight: bold;
@@ -27,16 +28,6 @@
   margin: 0;
   text-align: center;
   font-size: 1rem; /* Smaller title size */
-}
-
-/* Card styles */
-.kanban-card {
-  background-color: white;
-  border-radius: 4px;
-  box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
-  padding: 16px;
-  margin: 8px 12px;
-  cursor: grab;
 }
 
 /* Add button container */
