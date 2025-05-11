@@ -10,15 +10,15 @@ export default function EmptyHome() {
 
   // Define process categories (from enum)
   const processCategories = [
-    { id: 'administrative_financial', title: 'Administrative & Financial' },
-    { id: 'commercial', title: 'Commercial' },
-    { id: 'communication_marketing', title: 'Communication & Marketing' },
-    { id: 'development', title: 'Development' },
-    { id: 'innovation', title: 'Innovation' },
-    { id: 'people', title: 'People' },
-    { id: 'products', title: 'Products' },
-    { id: 'operations', title: 'Operations' },
-    { id: 'quality', title: 'Quality' }
+    { id: 'administrative_financial', title: 'Administrativo e Financeiro' },
+    { id: 'commercial', title: 'Comercial' },
+    { id: 'communication_marketing', title: 'Comunicação e Marketing' },
+    { id: 'development', title: 'Desenvolvimento' },
+    { id: 'innovation', title: 'Inovação' },
+    { id: 'people', title: 'Pessoas' },
+    { id: 'products', title: 'Produtos' },
+    { id: 'operations', title: 'Operações' },
+    { id: 'quality', title: 'Qualidade' }
   ];
 
   // Fetch selection processes from API
@@ -28,7 +28,7 @@ export default function EmptyHome() {
         const response = await axios.get('/api/selection-processes/');
         setSelectionProcesses(response.data);
       } catch (err) {
-        setError('Failed to load selection processes.');
+        setError('Falha ao carregar processos seletivos.');
         console.error(err);
       } finally {
         setLoading(false);
@@ -47,22 +47,22 @@ export default function EmptyHome() {
 
   // Handle card addition (placeholder)
   const handleAddCard = (columnId) => {
-    alert(`Add new selection process to category: ${columnId}`);
+    alert(`Adicionar novo processo seletivo à categoria: ${columnId}`);
   };
 
   // Handle card movement (placeholder)
   const handleMoveCard = (fromColumn, toColumn, card) => {
     alert(
-      `Moved card "${card.content}" from "${fromColumn}" to "${toColumn}"`
+      `Movido cartão "${card.content}" de "${fromColumn}" para "${toColumn}"`
     );
   };
 
-  if (loading) return <div className="container mt-5">Loading...</div>;
+  if (loading) return <div className="container mt-5">Carregando...</div>;
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
 
   return (
     <div className="container mt-5 overflow-auto">
-      <h2>Selection Processes</h2>
+      <h2>Processos Seletivos</h2>
       <KanbanV2
         columns={processCategories}
         cards={cards}
