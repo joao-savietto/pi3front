@@ -10,7 +10,7 @@ export default function EmptyHome() {
 
   // Define process categories (from enum)
   const processCategories = [
-    { id: 'administrative_financial', title: 'Administrativo e Financeiro' },
+    { id: 'administrative_financial', title: 'Administrativo' },
     { id: 'commercial', title: 'Comercial' },
     { id: 'communication_marketing', title: 'Comunicação e Marketing' },
     { id: 'development', title: 'Desenvolvimento' },
