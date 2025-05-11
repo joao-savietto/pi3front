@@ -4,6 +4,11 @@
   overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
+/* Test style - should be visible */
+.kanban-test {
+  background-color: red !important;
+}
+
 .kanban-column {
   background-color: #f5f5f5;
   border-radius: 8px;
