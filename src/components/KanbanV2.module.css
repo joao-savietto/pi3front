@@ -11,6 +11,7 @@
   min-height: 300px;
   margin-right: 20px; /* Space between columns */
   flex-shrink: 0; /* Prevent columns from shrinking */
+  min-width: 250px; /* Minimum width for each column */
 }
 
 .kanban-header {
