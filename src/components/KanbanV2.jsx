@@ -18,53 +18,80 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
     }
   };
 
+  // Group cards by column and then by row
+  const getRowsForColumn = (columnId) => {
+    return cards.filter(card => card.columnId === columnId).map(card => ({
+      id: card.id,
+      content: card.content,
+      columnId: card.columnId
+    }));
+  };
+
+  // Calculate how many columns to show per row based on screen size
+  const getColumnsPerRow = () => {
+    return window.innerWidth < 768 ? 1 : 
+           window.innerWidth < 992 ? 2 : 3;
+  };
+
   return (
     <DndContext
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
       <div className="kanban-board">
-        {/* Use Bootstrap row and columns for layout */}
-        <div className="row g-4">
-          {columns.map((column) => (
-            <div key={column.id} className="col-md-6 col-lg-4" data-column-id={column.id}>
-              <div className="kanban-column">
-                {/* Column Header */}
-                {renderColumnHeader ? (
-                  renderColumnHeader(column)
-                ) : (
-                  <h3 className="kanban-header">{column.title}</h3>
-                )}
-
-                {/* Cards List */}
-                <SortableContext
-                  items={cards.filter((card) => card.columnId === column.id).map((c) => c.id)}
-                  strategy={verticalListSortingStrategy}
+        {/* Use Bootstrap row for horizontal layout */}
+        {columns.map((column, rowIndex) => {
+          // Calculate which columns to show in this row
+          const startIndex = rowIndex * getColumnsPerRow();
+          const endIndex = startIndex + getColumnsPerRow();
+          
+          return (
+            <div key={rowIndex} className="row g-4 mb-4">
+              {columns.slice(startIndex, endIndex).map((column) => (
+                <div 
+                  key={column.id} 
+                  className="col-md-6 col-lg-4" 
+                  data-column-id={column.id}
                 >
-                  {cards
-                    .filter((card) => card.columnId === column.id)
-                    .map((card, index) => (
-                      <div key={card.id} className="kanban-card" data-id={card.id}>
-                        {renderCard ? renderCard(card, card.columnId) : (
-                          <div>{card.content}</div>
-                        )}
-                      </div>
-                    ))}
-                </SortableContext>
+                  <div className="kanban-column">
+                    {/* Column Header */}
+                    {renderColumnHeader ? (
+                      renderColumnHeader(column)
+                    ) : (
+                      <h3 className="kanban-header">{column.title}</h3>
+                    )}
 
-                {/* Add Card Button Container */}
-                <div className="kanban-add-button-container">
-                  <button
-                    onClick={() => onAddCard(column.id)}
-                    className="kanban-add-button"
-                  >
-                    + Adicionar Cartão
-                  </button>
+                    {/* Cards List */}
+                    <SortableContext
+                      items={getRowsForColumn(column.id).map(c => c.id)}
+                      strategy={verticalListSortingStrategy}
+                    >
+                      {cards
+                        .filter((card) => card.columnId === column.id)
+                        .map((card, index) => (
+                          <div key={card.id} className="kanban-card" data-id={card.id}>
+                            {renderCard ? renderCard(card, card.columnId) : (
+                              <div>{card.content}</div>
+                            )}
+                          </div>
+                        ))}
+                    </SortableContext>
+
+                    {/* Add Card Button Container */}
+                    <div className="kanban-add-button-container">
+                      <button
+                        onClick={() => onAddCard(column.id)}
+                        className="kanban-add-button"
+                      >
+                        + Adicionar Cartão
+                      </button>
+                    </div>
+                  </div>
                 </div>
-              </div>
+              ))}
             </div>
-          ))}
-        </div>
+          );
+        })}
       </div>
     </DndContext>
   );
