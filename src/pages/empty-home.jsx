@@ -41,7 +41,7 @@ export default function EmptyHome() {
   // Format cards for Kanban
   const cards = selectionProcesses.map((process) => ({
     id: process.id,
-    content: `${process.title} (ID: ${process.id})`,
+    content: `${process.description}`,
     columnId: process.category
   }));
 
