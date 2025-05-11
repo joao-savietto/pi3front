@@ -46,8 +46,8 @@ export default function EmptyHome() {
   }));
 
   // Handle card addition (placeholder)
-  const handleAddCard = (columnId) => {
-    alert(`Adicionar novo processo seletivo à categoria: ${columnId}`);
+  const handleAddCard = () => {
+    alert('Adicionar novo processo seletivo');
   };
 
   // Handle card movement (placeholder)
@@ -63,13 +63,19 @@ export default function EmptyHome() {
   return (
     <div className="container mt-5 overflow-auto">
       <h2>Processos Seletivos</h2>
+      <button 
+        className="btn btn-success mb-4" 
+        onClick={handleAddCard}
+      >
+        Adicionar Processo Seletivo
+      </button>
       <KanbanV2
         columns={processCategories}
         cards={cards}
-        onAddCard={handleAddCard}
+        onAddCard={() => {}} // Empty function since button is now outside
         onMoveCard={handleMoveCard}
         renderColumnHeader={(column) => (
-          <h3 className="kanban-header">{column.title}</h3> // Updated class name
+          <h3 className="kanban-header">{column.title}</h3>
         )}
         renderCard={(card, columnId) => (
           <div className="kanban-card">
