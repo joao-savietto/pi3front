@@ -1,6 +1,7 @@
 /* Using Bootstrap classes instead of custom CSS */
 .kanban-board {
   margin: 20px;
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
 .kanban-column {
@@ -8,7 +9,8 @@
   border-radius: 8px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   min-height: 300px;
-  margin-bottom: 20px; /* Add spacing between rows */
+  margin-right: 20px; /* Space between columns */
+  flex-shrink: 0; /* Prevent columns from shrinking */
 }
 
 .kanban-header {
