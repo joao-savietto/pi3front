@@ -89,7 +89,8 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
             <div className="kanban-add-button-container">
               <button
                 onClick={() => onAddCard(column.id)}
-                className="kanban-add-button"
+                className={`btn btn-light btn-sm ${process.env.NODE_ENV === 'development' ? 'border border-primary' : ''}`}
+                style={{ minWidth: 'auto', marginRight: 0 }}
               >
                 + Adicionar Cartão
               </button>

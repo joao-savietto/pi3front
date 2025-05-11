@@ -26,6 +26,7 @@
   border-bottom: 1px solid #ddd;
   margin: 0;
   text-align: center;
+  font-size: 1rem; /* Smaller title size */
 }
 
 /* Card styles */
@@ -47,7 +48,7 @@
   padding-bottom: 16px;
 }
 
-/* Add button styles */
+/* Add button styles - using Bootstrap classes */
 .kanban-add-button {
   padding: 6px 12px;
   background-color: #e9ecef;
@@ -55,8 +56,5 @@
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
-}
-
-.kanban-add-button:hover {
-  background-color: #dee2e6;
+  transition: all 0.2s; /* Smooth hover effect */
 }
