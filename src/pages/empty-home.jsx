@@ -61,7 +61,7 @@ export default function EmptyHome() {
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
 
   return (
-    <div className="container mt-5">
+    <div className="container mt-5 overflow-auto">
       <h2>Selection Processes</h2>
       <KanbanV2
         columns={processCategories}

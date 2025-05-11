@@ -24,7 +24,7 @@ process, with its own status.
                                                                                                                                            
 ## UI/UX Design - MVP Features                                                                                                             
                                                                                                                                            
-### Level 1: Main Home Screen (Process Category Kanban)                                                                                    
+### Main Home Screen (Process Category Kanban)                                                                                    
                                                                                                                                            
 *   **Layout:** Kanban board with columns based on `ProcessCategory`.                                                                      
     *   Columns: Administrative & Financial, Commercial, Communication & Marketing, Development, Innovation, People, Products, Operations, 
@@ -39,7 +39,7 @@ Quality.
 *   **Quick Actions:**                                                                                                                     
     *   Button to "Create New Selection Process" (select category, fill details).                                                          
                                                                                                                                            
-### Level 2: Individual Selection Process Page/Modal (Participation Kanban)                                                                
+### Individual Selection Process Page/Modal (Participation Kanban)                                                                
                                                                                                                                            
 *   **Layout:** Kanban board with columns based on `ApplicationStep` enum:                                                                  
     *   Hunting                                                            
@@ -66,7 +66,7 @@ Quality.
             *   Options to update ApplicationStep.                                                                                         
         *   Button/Icon on card or button at top to "Add Participant" (create new Participation for this process).                         
                                                                                                                                            
-### Level 3: Talent Management Page                                                                                                          
+### Talent Management Page                                                                                                          
 * **Purpose:** Dedicated management of talent pool with advanced filtering and organization
 * **Layout:** Responsive table view with adjustable columns
 * **Table Structure:**
