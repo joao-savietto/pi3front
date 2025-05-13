@@ -1,8 +1,8 @@
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import useAxios from '../services/hooks/useAxios';
 import KanbanV2 from '../components/KanbanV2';
 
-export default function EmptyHome() {
+export default function HomePage() {
   const axios = useAxios();
   const [selectionProcesses, setSelectionProcesses] = useState([]);
   const [loading, setLoading] = useState(true);
