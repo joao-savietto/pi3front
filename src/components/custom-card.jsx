@@ -5,7 +5,7 @@ import styles from '../components/KanbanV2.module.css';
 export default function CustomCard({text, subtext, onClick}) {
   return (
     <Card 
-      className={`${styles['custom-kanban-card']} w-100 mt-2`}
+      className={`${styles['custom-kanban-card']} mt-2`}
       style={{ cursor: 'pointer' }}
       onClick={onClick}
     >

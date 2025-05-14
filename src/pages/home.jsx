@@ -77,7 +77,7 @@ export default function HomePage() {
         cards={cards}
         onMoveCard={handleMoveCard}
         renderColumnHeader={(column) => (
-          <h3 className={styles['custom-kanban-header']}>{column.title}</h3> {/* ✅ Use styles */}
+          <h3 className={styles['custom-kanban-header']}>{column.title}</h3>
         )}
         renderCard={(id, content) => (
           <CustomCard 
