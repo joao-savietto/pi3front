@@ -9,7 +9,7 @@
 }
 
 /* Apply kanban-card styles directly to the component's div */
-.custom-kanban-column .custom-kanban-card { /* ✅ Changed from > to space */
+.custom-kanban-column .custom-kanban-card { 
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
@@ -42,12 +42,12 @@
 .custom-kanban-column {
   background-color: white; /* Light gray background for the column */
   border-radius: 8px;        /* Rounded corners for the column */
-  margin-right: '20px';
-  min-width: '250px';
+  margin-right: 20px;         /* ✅ Fixed invalid syntax */
+  min-width: 250px;           /* ✅ Fixed invalid syntax */
   padding-bottom: 30px;
 }
 
 /* Card title styling - reduced font size by 25% */
 .card-title {
-  font-size: 1.125rem; /* Reduced from Bootstrap's default of 1.5rem to 1.125rem (75%) */
+  font-size: 1.125rem; 
 }
