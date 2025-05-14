@@ -3,7 +3,7 @@ import styles from './KanbanV2.module.css'; // Import the CSS module
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS as DndKitCSS } from '@dnd-kit/utilities'; // Renamed to avoid conflict
-import 'bootstrap/dist/css/bootstrap.min.css';
+
 
 export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, renderColumnHeader, renderCard }) {
   const handleDragEnd = (event) => {
