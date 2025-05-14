@@ -27,7 +27,7 @@
   border-bottom: 1px solid #ddd;
   margin: 0;
   text-align: center;
-  font-size: 1rem; /* Smaller title size */
+  font-size: 0.75rem; /* Reduced by 25% from original 1rem */
   background-color: #e9ecef; /* Subtle header background */
 }
 
@@ -57,4 +57,9 @@
   border-radius: 8px;        /* Rounded corners for the column */
   margin-right: '20px';
   min-width: '250px';
+}
+
+/* Card title styling - reduced font size by 25% */
+.card-title {
+  font-size: 1.125rem; /* Reduced from Bootstrap's default of 1.5rem to 1.125rem (75%) */
 }
