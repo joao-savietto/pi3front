@@ -1,9 +1,10 @@
 import React from "react";
 import { Card, Row, Col, Button } from "react-bootstrap";
+import styles from '../components/KanbanV2.module.css';
 
 export default function CustomCard({text, subtext, buttonClick, buttonTitle, buttonHidden}){
   return (
-    <Card className=" w-75 align-self-center mt-2">
+    <Card className={`${styles['custom-kanban-card']} w-75 align-self-center mt-2`}>
       <Card.Body>
         <Row className="align-items-center">
           <Col xs={8} md={9}>

@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react';
 import useAxios from '../services/hooks/useAxios';
 import KanbanV2 from '../components/KanbanV2';
+import CustomCard from '../components/custom-card';
 
 export default function HomePage() {
   const axios = useAxios();
@@ -78,9 +79,12 @@ export default function HomePage() {
           <h3 className="custom-kanban-header">{column.title}</h3>
         )}
         renderCard={(card, columnId) => (
-          <div className="custom-kanban-card">
-            <strong>{card.content}</strong>
-          </div>
+          <CustomCard 
+            text={card.content} 
+            subtext={`Categoria: ${columnId}`}
+            buttonTitle="Detalhes"
+            buttonClick={() => console.log("View details for", card)}
+          />
         )}
       />
     </div>
