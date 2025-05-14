@@ -57,7 +57,7 @@ export default function Root() {
         </div>
       </div>
       <div
-        className="w-100 position-relative ms-3 me-3"
+        className="w-100 position-relative ms-0 me-3"
         style={{ overflowX: 'hidden' }}
       >
         <div
@@ -69,7 +69,7 @@ export default function Root() {
             Módulos
           </p>
         </div>
-        <div className="position-relative w-auto ms-3 me-3">
+        <div className="position-relative w-auto ms-4 me-4">
           <Outlet />
         </div>
       </div>
