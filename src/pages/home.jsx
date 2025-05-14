@@ -64,7 +64,7 @@ export default function HomePage() {
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
 
   return (
-    <div className="container mt-5 overflow-auto">
+    <div className="d-flex flex-column w-100">
       <h2>Processos Seletivos</h2>
       <button 
         className="btn btn-success mb-4" 
@@ -72,21 +72,23 @@ export default function HomePage() {
       >
         Adicionar Processo Seletivo
       </button>
-      <KanbanV2
-        columns={processCategories}
-        cards={cards}
-        onMoveCard={handleMoveCard}
-        renderColumnHeader={(column) => (
-          <h3 className={styles['custom-kanban-header']}>{column.title}</h3>
-        )}
-        renderCard={(id, content) => (
-          <CustomCard 
-            text={content} 
-            subtext={`Categoria: ${processCategories.find(c => c.id === id)?.title}`}
-            onClick={() => console.log("View details for", id)}
-          />
-        )}
-      />
+      <div className="w-100 overflow-auto">
+        <KanbanV2
+          columns={processCategories}
+          cards={cards}
+          onMoveCard={handleMoveCard}
+          renderColumnHeader={(column) => (
+            <h3 className={styles['custom-kanban-header']}>{column.title}</h3>
+          )}
+          renderCard={(id, content) => (
+            <CustomCard 
+              text={content} 
+              subtext={`Categoria: ${processCategories.find(c => c.id === id)?.title}`}
+              onClick={() => console.log("View details for", id)}
+            />
+          )}
+        />
+      </div>
     </div>
   );
 }
