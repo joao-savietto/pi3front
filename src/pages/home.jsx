@@ -75,10 +75,10 @@ export default function HomePage() {
         onAddCard={() => {}} // Empty function since button is now outside
         onMoveCard={handleMoveCard}
         renderColumnHeader={(column) => (
-          <h3 className="kanban-header">{column.title}</h3>
+          <h3 className="custom-kanban-header">{column.title}</h3>
         )}
         renderCard={(card, columnId) => (
-          <div className="kanban-card">
+          <div className="custom-kanban-card">
             <strong>{card.content}</strong>
           </div>
         )}

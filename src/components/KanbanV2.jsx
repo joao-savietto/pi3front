@@ -4,9 +4,6 @@ import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
 import { CSS as DndKitCSS } from '@dnd-kit/utilities'; // Renamed to avoid conflict
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-// Import the CSS module for KanbanV2 component styles
-import './KanbanV2.module.css'; // <-- Add this line
-
 export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, renderColumnHeader, renderCard }) {
   const handleDragEnd = (event) => {
     const { active, over } = event;
@@ -61,7 +58,7 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
         {columns.map((column) => (
           <div 
             key={column.id} 
-            className="kanban-column" // This class is defined in KanbanV2.module.css
+            className="custom-kanban-column" // Changed to regular class name
             data-column-id={column.id}
             style={{ minWidth: '250px', marginRight: '20px' }}
           >
@@ -69,7 +66,7 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
             {renderColumnHeader ? (
               renderColumnHeader(column)
             ) : (
-              <h3 className="kanban-header"> {/* This class is defined in KanbanV2.module.css */ }
+              <h3 className="custom-kanban-header"> {/* Changed to regular class name */ }
                 {column.title}
               </h3>
             )}
@@ -82,7 +79,7 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
               {cards
                 .filter((card) => card.columnId === column.id)
                 .map((card, index) => (
-                  <div key={card.id} className="card"> {/* This class is defined in KanbanV2.module.css */ }
+                  <div key={card.id} className="custom-kanban-card"> {/* Changed to regular class name */ }
                     {renderCard ? renderCard(card, card.columnId) : (
                       <div>{card.content}</div>
                     )}
