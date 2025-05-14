@@ -82,8 +82,7 @@ export default function HomePage() {
           <CustomCard 
             text={card.content} 
             subtext={`Categoria: ${columnId}`}
-            buttonTitle="Detalhes"
-            buttonClick={() => console.log("View details for", card)}
+            onClick={() => console.log("View details for", card)}
           />
         )}
       />
