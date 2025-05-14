@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import useAxios from '../services/hooks/useAxios';
 import KanbanV2 from '../components/KanbanV2';
 import CustomCard from '../components/custom-card';
+import styles from '../components/KanbanV2.module.css';
 
 export default function HomePage() {
   const axios = useAxios();
@@ -76,7 +77,7 @@ export default function HomePage() {
         onAddCard={() => {}} // Empty function since button is now outside
         onMoveCard={handleMoveCard}
         renderColumnHeader={(column) => (
-          <h3 className="custom-kanban-header">{column.title}</h3>
+          <h3 className={styles['custom-kanban-header']}>{column.title}</h3>
         )}
         renderCard={(card, columnId) => (
           <CustomCard 
