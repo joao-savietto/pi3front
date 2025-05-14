@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import styles from './KanbanV2.module.css'; // Import the CSS module
 import { DndContext, closestCenter } from '@dnd-kit/core';
 import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { CSS as DndKitCSS } from '@dnd-kit/utilities'; // Renamed to avoid conflict
@@ -53,12 +54,12 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
       collisionDetection={closestCenter}
       onDragEnd={handleDragEnd}
     >
-      <div className="kanban-board d-flex flex-nowrap">
+      <div className={`${styles['kanban-board']} d-flex flex-nowrap`}>
         {/* Display all columns in a single row */}
         {columns.map((column) => (
           <div 
             key={column.id} 
-            className="custom-kanban-column" // Changed to regular class name
+            className={styles['custom-kanban-column']}
             data-column-id={column.id}
             style={{ minWidth: '250px', marginRight: '20px' }}
           >
@@ -66,7 +67,7 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
             {renderColumnHeader ? (
               renderColumnHeader(column)
             ) : (
-              <h3 className="custom-kanban-header"> {/* Changed to regular class name */ }
+              <h3 className={styles['custom-kanban-header']}>
                 {column.title}
               </h3>
             )}
@@ -79,7 +80,7 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
               {cards
                 .filter((card) => card.columnId === column.id)
                 .map((card, index) => (
-                  <div key={card.id} className="custom-kanban-card"> {/* Changed to regular class name */ }
+                  <div key={card.id} className={styles['custom-kanban-card']}>
                     {renderCard ? renderCard(card, card.columnId) : (
                       <div>{card.content}</div>
                     )}
