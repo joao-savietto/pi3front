@@ -40,8 +40,10 @@ export default function Root() {
             <Person className="me-1" />
             Candidatos
           </Link>
-          {/* other stuff here */}
-
+          <Link to={'/'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
+            <Person className="me-1" />
+            Início
+          </Link>
         </div>
         <div className="d-flex align-bottom w-100 h-100 flex-column-reverse ms-3">
           <div
