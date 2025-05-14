@@ -11,7 +11,7 @@
 
 /* Apply kanban-card styles directly to the component's div */
 .kanban-column > .card {
-  background-color: white;
+  background-color:red;
   border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
   padding: 16px;
@@ -23,6 +23,7 @@
 .kanban-header {
   padding: 12px 16px;
   font-weight: bold;
+  
   color: #333;
   border-bottom: 1px solid #ddd;
   margin: 0;
@@ -53,7 +54,7 @@
 
 /* Column styling - added light gray background and rounded corners */
 .kanban-column {
-  background-color: #f8f9fa; /* Light gray background for the column */
+  background-color: red; /* Light gray background for the column */
   border-radius: 8px;        /* Rounded corners for the column */
   margin-right: '20px';
   min-width: '250px';
