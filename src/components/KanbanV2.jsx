@@ -58,7 +58,7 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
         {columns.map((column) => (
           <div 
             key={column.id} 
-            className={`kanban-column kanban-test`} 
+            className="kanban-column"
             data-column-id={column.id}
             style={{ minWidth: '250px', marginRight: '20px' }}
           >
