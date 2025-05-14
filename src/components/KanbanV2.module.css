@@ -26,8 +26,8 @@
   border-bottom: 1px solid #ddd;
   margin: 0;
   text-align: center;
-  font-size: 0.75rem; /* Reduced by 25% from original 1rem */
-  background-color: #e9ecef; /* Subtle header background */
+  font-size: 16px;
+  background-color: #e9ecef; 
 }
 
 /* Add button container */

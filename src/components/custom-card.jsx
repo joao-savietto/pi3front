@@ -11,8 +11,9 @@ export default function CustomCard({text, subtext, onClick}) {
     >
       <Card.Body>
         <Row className="align-items-center">
-          <Col xs={8} md={9}>
-            <h5 className="card-title" style={{ marginBottom: 0 }}>{text}</h5>
+          <Col>
+            <h6 className="card-title" style={{ marginBottom: 0 }}>{text}</h6>
+            <hr/>
             <small className="sub-text" style={{ marginTop: 0 }}>{subtext}</small>
           </Col>          
         </Row>

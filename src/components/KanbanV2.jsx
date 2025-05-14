@@ -67,9 +67,9 @@ export default function KanbanV2({ columns, cards, onAddCard, onMoveCard, render
             {renderColumnHeader ? (
               renderColumnHeader(column)
             ) : (
-              <h3 className={styles['custom-kanban-header']}>
+              <p className={styles['custom-kanban-header']}>
                 {column.title}
-              </h3>
+              </p>
             )}
 
             {/* Cards List */}
