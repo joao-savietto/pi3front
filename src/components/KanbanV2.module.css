@@ -1,4 +1,3 @@
-/* Using regular CSS classes instead of module scoping */
 .kanban-board {
   margin: 20px;
   overflow-x: auto; /* Allow horizontal scrolling if needed */
@@ -10,7 +9,7 @@
 }
 
 /* Apply kanban-card styles directly to the component's div */
-.custom-kanban-column > .custom-kanban-card {
+.custom-kanban-column .custom-kanban-card { /* ✅ Changed from > to space */
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
