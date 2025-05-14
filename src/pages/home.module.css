@@ -1,0 +1,5 @@
+.btn--normal-size {
+  max-width: fit-content;
+  padding-left: 1.5rem;
+  padding-right: 1.5rem;
+}

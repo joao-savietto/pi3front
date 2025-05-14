@@ -3,6 +3,7 @@ import useAxios from '../services/hooks/useAxios';
 import KanbanV2 from '../components/KanbanV2';
 import CustomCard from '../components/custom-card';
 import styles from '../components/KanbanV2.module.css';
+import homeStyles from './home.module.css'; // Import the new CSS module
 
 export default function HomePage() {
   const axios = useAxios();
@@ -67,7 +68,7 @@ export default function HomePage() {
     <div className="d-flex flex-column w-100">
       <h2>Processos Seletivos</h2>
       <button 
-        className="btn btn-success mb-4" 
+        className={`btn btn-success mb-4 ${homeStyles['btn--normal-size']}`} // Apply the new class
         onClick={() => alert('Adicionar novo processo seletivo')}
       >
         Adicionar Processo Seletivo
