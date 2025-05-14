@@ -14,7 +14,6 @@
   background-color: white;
   border-radius: 4px;
   box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
-  padding: 16px;
   margin: 8px 12px;
   cursor: grab;
 }
@@ -53,10 +52,11 @@
 
 /* Column styling - added light gray background and rounded corners */
 .custom-kanban-column {
-  background-color: #f8f9fa; /* Light gray background for the column */
+  background-color: white; /* Light gray background for the column */
   border-radius: 8px;        /* Rounded corners for the column */
   margin-right: '20px';
   min-width: '250px';
+  padding-bottom: 30px;
 }
 
 /* Card title styling - reduced font size by 25% */
