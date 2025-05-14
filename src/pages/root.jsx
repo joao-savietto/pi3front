@@ -2,7 +2,7 @@ import { Outlet, Link } from "react-router-dom";
 import logo from "../assets/logo_ytn.png"
 import { Person } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
-import { setTokens, clearTokens } from "../services/slices/authSlice";
+import { clearTokens } from "../services/slices/authSlice";
 import { useEffect } from "react";
 import { useNavigate } from "react-router-dom";
 
@@ -10,7 +10,6 @@ export default function Root() {
 
   const dispatch = useDispatch();
   const accessToken = useSelector(state => state.auth.accessToken);
-  const refreshToken = useSelector(state => state.auth.refreshToken);
   const userProfile = useSelector(state => state.profile);
   const navigate = useNavigate();
 
@@ -25,6 +24,7 @@ export default function Root() {
       logout()
     }
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [accessToken]);
 
   return (
