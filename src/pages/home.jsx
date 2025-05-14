@@ -2,7 +2,6 @@ import { useState, useEffect } from 'react';
 import useAxios from '../services/hooks/useAxios';
 import KanbanV2 from '../components/KanbanV2';
 import CustomCard from '../components/custom-card';
-import styles from '../components/KanbanV2.module.css';
 
 export default function HomePage() {
   const axios = useAxios();
@@ -23,8 +22,19 @@ export default function HomePage() {
     { id: 'quality', title: 'Qualidade' }
   ];
 
+  // Helper to map selection processes into Kanban cards
+  const mapToCards = (processes) => {
+    return processes.map((process) => ({
+      id: process.id,
+      content: `${process.description}`,
+      columnId: process.category
+    }));
+  };
+
   // Fetch selection processes from API
   useEffect(() => {
+    if (!axios) return;
+
     const fetchSelectionProcesses = async () => {
       try {
         const response = await axios.get('/api/selection-processes/');
@@ -40,19 +50,9 @@ export default function HomePage() {
     fetchSelectionProcesses();
   }, [axios]);
 
-  // Format cards for Kanban
-  const cards = selectionProcesses.map((process) => ({
-    id: process.id,
-    content: `${process.description}`,
-    columnId: process.category
-  }));
+  const cards = mapToCards(selectionProcesses);
 
-  // Handle card addition (placeholder)
-  const handleAddCard = () => {
-    alert('Adicionar novo processo seletivo');
-  };
-
-  // Handle card movement (placeholder)
+  // Handle card movement
   const handleMoveCard = (fromColumn, toColumn, card) => {
     alert(
       `Movido cartão "${card.content}" de "${fromColumn}" para "${toColumn}"`
@@ -67,23 +67,22 @@ export default function HomePage() {
       <h2>Processos Seletivos</h2>
       <button 
         className="btn btn-success mb-4" 
-        onClick={handleAddCard}
+        onClick={() => alert('Adicionar novo processo seletivo')}
       >
         Adicionar Processo Seletivo
       </button>
       <KanbanV2
         columns={processCategories}
         cards={cards}
-        onAddCard={() => {}} // Empty function since button is now outside
         onMoveCard={handleMoveCard}
         renderColumnHeader={(column) => (
-          <h3 className={styles['custom-kanban-header']}>{column.title}</h3>
+          <h3 className="custom-kanban-header">{column.title}</h3>
         )}
-        renderCard={(card, columnId) => (
+        renderCard={(id, content) => (
           <CustomCard 
-            text={card.content} 
-            subtext={`Categoria: ${columnId}`}
-            onClick={() => console.log("View details for", card)}
+            text={content} 
+            subtext={`Categoria: ${processCategories.find(c => c.id === id)?.title}`}
+            onClick={() => console.log("View details for", id)}
           />
         )}
       />
