@@ -84,7 +84,7 @@ export default function HomePage() {
           renderCard={(id, content) => (
             <CustomCard 
               text={content} 
-              subtext={`Categoria: ${processCategories.find(c => c.id === id)?.title}`}
+              subtext={content.is_ended ? "Processo Encerrado" : "Processo Aberto"}
               onClick={() => console.log("View details for", id)}
             />
           )}
