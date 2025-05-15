@@ -65,7 +65,7 @@ export default function HomePage() {
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
 
   return (
-    <div className="d-flex flex-column w-100">
+    <div className="d-flex flex-column h-100">
       <h2>Processos Seletivos</h2>
       <button 
         className={`btn btn-success mb-4 ${homeStyles['btn--normal-size']}`} // Apply the new class
@@ -73,7 +73,7 @@ export default function HomePage() {
       >
         Adicionar Processo Seletivo
       </button>
-      <div className="w-100 overflow-auto">
+      <div className="flex-grow-1 overflow-auto">
         <KanbanV2
           columns={processCategories}
           cards={cards}

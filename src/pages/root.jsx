@@ -60,7 +60,7 @@ export default function Root() {
       </div>
       <div
         className="w-100 position-relative ms-0 me-3"
-        style={{ overflowX: 'hidden' }}
+        style={{ overflowX: 'hidden', display: 'flex', flexDirection: 'column' }}
       >
         <div
           className="d-flex flex-column align-content-center w-100 mb-2 bottom-shaddow "
@@ -71,7 +71,7 @@ export default function Root() {
             Módulos
           </p>
         </div>
-        <div className="position-relative w-auto ms-4 me-4">
+        <div className="position-relative w-auto ms-4 me-4 flex-grow-1">
           <Outlet />
         </div>
       </div>
