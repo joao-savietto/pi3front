@@ -58,7 +58,7 @@ export default function Root() {
       </div>
       <div className="w-100">
         <div
-          className="d-flex flex-column align-content-center w-100 bg-dark-subtle mb-2 bottom-shaddow "
+          className="d-flex flex-column align-content-center w-100 bg-light mb-2 bottom-shaddow "
           style={{ maxHeight: "80px" }}
         >
           <p className="fs-5 mb-1 ms-3 mt-2" >RH Youtan</p>
