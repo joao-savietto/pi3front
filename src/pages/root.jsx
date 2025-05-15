@@ -36,13 +36,13 @@ export default function Root() {
         <img src={logo} alt="Youtan Logo" style={{ width: '60%' }} className="mb-5" />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
           {/* EXAMPLE OF NAVIGATION LINKS */}
+          <Link to={'/'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
+            <Person className="me-1" />
+            Processos Seletivos
+          </Link>
           <Link to={'/talents'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
             <Person className="me-1" />
             Candidatos
-          </Link>
-          <Link to={'/'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-            <Person className="me-1" />
-            Início
           </Link>
         </div>
         <div className="d-flex align-bottom w-100 h-100 flex-column-reverse ms-3">
