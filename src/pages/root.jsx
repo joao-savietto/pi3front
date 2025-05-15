@@ -31,7 +31,7 @@ export default function Root() {
     <div className="d-flex flex-row w-100 h-100">
       <div
         className=" d-flex flex-column align-items-center h-100"
-        style={{ width: "222px", backgroundColor: "#5d9cb2" }}
+        style={{ width: "250px", backgroundColor: "#5d9cb2" }}
       >
         <img src={logo} alt="Youtan Logo" style={{ width: '60%' }} className="mb-5" />
         <div className="d-flex flex-column align-baseline w-100 ms-4">
@@ -63,8 +63,8 @@ export default function Root() {
         style={{ overflowX: 'hidden' }}
       >
         <div
-          className="d-flex flex-column align-content-center w-100 bg-dark-subtle mb-2 bottom-shaddow "
-          style={{ maxHeight: "80px" }}
+          className="d-flex flex-column align-content-center w-100 mb-2 bottom-shaddow "
+          style={{ maxHeight: "80px", backgroundColor: "#f0f0f0" }}
         >
           <p className="fs-5 mb-1 ms-3 mt-2" >RH Youtan</p>
           <p className="fs-7 fw-light ms-3 pb-2">
