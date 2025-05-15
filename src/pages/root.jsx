@@ -1,6 +1,6 @@
 import { Outlet, Link } from "react-router-dom";
 import logo from "../assets/logo_ytn.png"
-import { Person, Home } from "react-bootstrap-icons";
+import { PersonFill, HouseDoorFill } from "react-bootstrap-icons";
 import { useDispatch, useSelector } from "react-redux";
 import { clearTokens } from "../services/slices/authSlice";
 import { useEffect } from "react";
@@ -37,11 +37,11 @@ export default function Root() {
         <div className="d-flex flex-column align-baseline w-100 ms-4">
           {/* EXAMPLE OF NAVIGATION LINKS */}
           <Link to={'/'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-            <Home className="me-1" />
+            <HouseDoorFill className="me-1" />
             Processos Seletivos
           </Link>
           <Link to={'/talents'} className="text-white fs-6 fw-bold mb-2 text-decoration-none">
-            <Person className="me-1" />
+            <PersonFill className="me-1" />
             Candidatos
           </Link>
         </div>
@@ -53,7 +53,7 @@ export default function Root() {
               logout()
             }}
           >
-            <Person className="me-1" />
+            <PersonFill className="me-1" />
             {userProfile.profile?.nome || "[Sem Nome]"}
           </div>
         </div>
