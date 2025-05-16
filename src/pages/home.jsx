@@ -111,7 +111,7 @@ export default function HomePage() {
       </button>
 
       {/* Modal for adding new selection process */}
-      <Modal show={showModal} onHide={handleModalToggle}>
+      <Modal show={showModal} onHide={handleModalToggle} centered>
         <Form onSubmit={handleSubmit}>
           <Modal.Header closeButton>
             <Modal.Title>Novo Processo Seletivo</Modal.Title>
