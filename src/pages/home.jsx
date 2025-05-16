@@ -79,7 +79,7 @@ export default function HomePage() {
     }
 
     try {
-      await axios.post('/api/selection-processes', {
+      await axios.post('/api/selection-processes/', {
         description: newDescription,
         category: newCategory
       });
