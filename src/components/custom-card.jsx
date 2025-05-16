@@ -1,8 +1,9 @@
 import React from "react";
-import { Card, Row, Col } from "react-bootstrap";
+import { Card, Row, Col, Dropdown } from "react-bootstrap";
+import GiGear from 'react-icons/gi';
 import styles from '../components/KanbanV2.module.css';
 
-export default function CustomCard({text, subtext, onClick}) {
+export default function CustomCard({ text, subtext, onClick, onEdit, onViewDetails }) {
   return (
     <Card 
       className={`${styles['custom-kanban-card']} mt-2`}
@@ -13,11 +14,31 @@ export default function CustomCard({text, subtext, onClick}) {
         <Row className="align-items-center">
           <Col>
             <h6 className="card-title" style={{ marginBottom: 0 }}>{text}</h6>
-            <hr/>
-            <small className="sub-text" style={{ marginTop: 0 }}>{subtext}</small>
-          </Col>          
+            <hr />
+            <div className="d-flex justify-content-between align-items-center">
+              <small>{subtext}</small>
+              <Dropdown drop="end" autoClose="outside">
+                <Dropdown.Toggle
+                  variant="light"
+                  size="sm"
+                  id="dropdown-basic"
+                  style={{ padding: '0.25rem 0.5rem', border: 'none' }}
+                >
+                  <GiGear />
+                </Dropdown.Toggle>
+                <Dropdown.Menu>
+                  {onEdit && (
+                    <Dropdown.Item onClick={onEdit}>Editar</Dropdown.Item>
+                  )}
+                  {onViewDetails && (
+                    <Dropdown.Item onClick={onViewDetails}>Detalhes</Dropdown.Item>
+                  )}
+                </Dropdown.Menu>
+              </Dropdown>
+            </div>
+          </Col>
         </Row>
       </Card.Body>
     </Card>
   );
-};
+}
