@@ -17,6 +17,8 @@ export default function HomePage() {
   const [showModal, setShowModal] = useState(false);
   const [newDescription, setNewDescription] = useState('');
   const [newCategory, setNewCategory] = useState('');
+  const [isEnded, setIsEnded] = useState(false);
+  const [editingCardId, setEditingCardId] = useState(null);
 
   // Define process categories (from enum)
   const processCategories = [
@@ -35,8 +37,9 @@ export default function HomePage() {
   const mapToCards = (processes) => {
     return processes.map((process) => ({
       id: process.id,
-      content: `${process.description}`,
-      columnId: process.category
+      content: process.description,
+      columnId: process.category,
+      is_ended: process.is_ended || false
     }));
   };
 
@@ -79,22 +82,60 @@ export default function HomePage() {
     }
 
     try {
-      await axios.post('/api/selection-processes/', {
-        description: newDescription,
-        category: newCategory
-      });
+      let response;
 
-      // Refresh data after successful creation
-      const response = await axios.get('/api/selection-processes/');
-      setSelectionProcesses(response.data);
+      if (editingCardId) {
+        // Update existing process
+        await axios.put(`/api/selection-processes/${editingCardId}/`, {
+          description: newDescription,
+          category: newCategory,
+          is_ended: isEnded
+        });
+      } else {
+        // Create new process
+        response = await axios.post('/api/selection-processes/', {
+          description: newDescription,
+          category: newCategory,
+          is_ended: false
+        });
+
+        setSelectionProcesses([...selectionProcesses, response.data]);
+      }
+
+      // Refresh data after successful operation
+      const updatedResponse = await axios.get('/api/selection-processes/');
+      setSelectionProcesses(updatedResponse.data);
 
       handleModalToggle();
-      setNewDescription('');
-      setNewCategory('');
+      resetFormFields();
     } catch (err) {
-      console.error('Erro ao criar processo seletivo:', err);
-      alert('Falha ao adicionar novo processo.');
+      console.error('Erro ao salvar processo seletivo:', err);
+      alert('Falha ao salvar o processo.');
     }
+  };
+
+  const resetFormFields = () => {
+    setNewDescription('');
+    setNewCategory('');
+    setIsEnded(false);
+    setEditingCardId(null);
+  };
+
+  // Edit handler
+  const handleEdit = (id) => {
+    const processToEdit = selectionProcesses.find(p => p.id === id);
+    if (!processToEdit) return;
+
+    setEditingCardId(id);
+    setNewDescription(processToEdit.description);
+    setNewCategory(processToEdit.category);
+    setIsEnded(processToEdit.is_ended || false);
+    setShowModal(true);
+  };
+
+  // View Details handler
+  const handleViewDetails = (id) => {
+    console.log(`Ver detalhes do processo com ID: ${id}`);
   };
 
   if (loading) return <div className="container mt-5">Carregando...</div>;
@@ -110,11 +151,11 @@ export default function HomePage() {
         Adicionar Processo Seletivo
       </button>
 
-      {/* Modal for adding new selection process */}
+      {/* Modal for adding/editing selection process */}
       <Modal show={showModal} onHide={handleModalToggle} centered>
         <Form onSubmit={handleSubmit}>
           <Modal.Header closeButton>
-            <Modal.Title>Novo Processo Seletivo</Modal.Title>
+            <Modal.Title>{editingCardId ? 'Editar Processo' : 'Novo Processo Seletivo'}</Modal.Title>
           </Modal.Header>
           <Modal.Body>
             <Form.Group className="mb-3" controlId="formDescription">
@@ -142,13 +183,20 @@ export default function HomePage() {
                 ))}
               </Form.Select>
             </Form.Group>
+
+            <Form.Check
+              type="checkbox"
+              label="Processo Encerrado"
+              checked={isEnded}
+              onChange={(e) => setIsEnded(e.target.checked)}
+            />
           </Modal.Body>
           <Modal.Footer>
             <button type="button" className="btn btn-secondary" onClick={handleModalToggle}>
               Cancelar
             </button>
             <button type="submit" className="btn btn-success">
-              Adicionar Processo
+              {editingCardId ? 'Atualizar' : 'Adicionar'}
             </button>
           </Modal.Footer>
         </Form>
@@ -162,13 +210,18 @@ export default function HomePage() {
           renderColumnHeader={(column) => (
             <h3 className={styles['custom-kanban-header']}>{column.title}</h3>
           )}
-          renderCard={(id, content) => (
-            <CustomCard
-              text={content}
-              subtext={content.is_ended ? "Processo Encerrado" : "Processo Aberto"}
-              onClick={() => console.log("View details for", id)}
-            />
-          )}
+          renderCard={(id, content) => {
+            const card = cards.find(c => c.id === id);
+            return (
+              <CustomCard
+                text={content}
+                subtext={card.is_ended ? "Processo Encerrado" : "Processo Aberto"}
+                onClick={() => console.log("View details for", id)}
+                onEdit={() => handleEdit(id)}
+                onViewDetails={() => handleViewDetails(id)}
+              />
+            );
+          }}
         />
       </div>
     </div>
