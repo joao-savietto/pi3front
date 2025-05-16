@@ -17,7 +17,7 @@ export default function CustomCard({ text, subtext, onClick, onEdit, onViewDetai
             <hr />
             <div className="d-flex justify-content-between align-items-center">
               <small>{subtext}</small>
-              <Dropdown drop="end" autoClose="outside">
+              <Dropdown drop="down" autoClose="outside">
                 <Dropdown.Toggle
                   variant="light"
                   size="sm"
