@@ -6,6 +6,7 @@ import styles from '../components/KanbanV2.module.css';
 import homeStyles from './home.module.css';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
+import { useNavigate } from 'react-router-dom';
 
 export default function HomePage() {
   const axios = useAxios();
@@ -19,6 +20,10 @@ export default function HomePage() {
   const [newCategory, setNewCategory] = useState('');
   const [isEnded, setIsEnded] = useState(false);
   const [editingCardId, setEditingCardId] = useState(null);
+
+  // Details modal state
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedProcess, setSelectedProcess] = useState(null);
 
   // Define process categories (from enum)
   const processCategories = [
@@ -135,8 +140,14 @@ export default function HomePage() {
 
   // View Details handler
   const handleViewDetails = (id) => {
-    console.log(`Ver detalhes do processo com ID: ${id}`);
+    const processToView = selectionProcesses.find(p => p.id === id);
+    if (!processToView) return;
+
+    setSelectedProcess(processToView);
+    setShowDetailsModal(true);
   };
+
+  const navigate = useNavigate();
 
   if (loading) return <div className="container mt-5">Carregando...</div>;
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
@@ -200,6 +211,35 @@ export default function HomePage() {
             </button>
           </Modal.Footer>
         </Form>
+      </Modal>
+
+      {/* Modal for viewing process details */}
+      <Modal show={showDetailsModal} onHide={() => setShowDetailsModal(false)} centered size="lg">
+        <Modal.Header closeButton>
+          <Modal.Title>Detalhes do Processo</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedProcess && (
+            <>
+              <p><strong>Descrição:</strong> {selectedProcess.description}</p>
+              <p><strong>Categoria:</strong> 
+                {processCategories.find(cat => cat.id === selectedProcess.category)?.title || 'Desconhecida'}
+              </p>
+              <p><strong>Status:</strong> {selectedProcess.is_ended ? "Encerrado" : "Aberto"}</p>
+            </>
+          )}
+        </Modal.Body>
+        <Modal.Footer>
+          <button className="btn btn-secondary" onClick={() => setShowDetailsModal(false)}>
+            Fechar
+          </button>
+          <button 
+            className="btn btn-primary"
+            onClick={() => navigate(`/processes/${selectedProcess?.id}`)}
+          >
+            Acessar
+          </button>
+        </Modal.Footer>
       </Modal>
 
       <div className="flex-grow-1 overflow-auto">
