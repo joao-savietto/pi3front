@@ -1,6 +1,6 @@
 import React from "react";
 import { Card, Row, Col, Dropdown } from "react-bootstrap";
-import GiGear from 'react-icons/gi';
+import { GearFill } from "react-bootstrap-icons";
 import styles from '../components/KanbanV2.module.css';
 
 export default function CustomCard({ text, subtext, onClick, onEdit, onViewDetails }) {
@@ -24,7 +24,7 @@ export default function CustomCard({ text, subtext, onClick, onEdit, onViewDetai
                   id="dropdown-basic"
                   style={{ padding: '0.25rem 0.5rem', border: 'none' }}
                 >
-                  <GiGear />
+                  <GearFill />
                 </Dropdown.Toggle>
                 <Dropdown.Menu>
                   {onEdit && (
