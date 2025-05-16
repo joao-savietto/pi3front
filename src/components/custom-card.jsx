@@ -22,7 +22,7 @@ export default function CustomCard({ text, subtext, onClick, onEdit, onViewDetai
                   variant="light"
                   size="sm"
                   id="dropdown-basic"
-                  style={{ padding: '0.25rem 0.5rem', border: 'none' }}
+                  className="dropdown"
                 >
                   <GearFill />
                 </Dropdown.Toggle>
