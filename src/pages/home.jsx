@@ -7,6 +7,7 @@ import homeStyles from './home.module.css';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import { useNavigate } from 'react-router-dom';
+import { convertUTCStringToLocalDate } from '../services/dates';
 
 export default function HomePage() {
   const axios = useAxios();
@@ -226,6 +227,10 @@ export default function HomePage() {
                 {processCategories.find(cat => cat.id === selectedProcess.category)?.title || 'Desconhecida'}
               </p>
               <p><strong>Status:</strong> {selectedProcess.is_ended ? "Encerrado" : "Aberto"}</p>
+              <p><strong>Criado em:</strong> {convertUTCStringToLocalDate(selectedProcess.created_at)}</p>
+              {selectedProcess.is_ended && (
+                <p><strong>Encerrado em:</strong> {convertUTCStringToLocalDate(selectedProcess.ended_at)}</p>
+              )}
             </>
           )}
         </Modal.Body>
