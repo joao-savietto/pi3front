@@ -49,11 +49,10 @@ Quality.
     *   Technical Challenge                                                
     *   Leadership Interview                                               
     *   Offer Phase                                                        
-
     *   Onboarding                                                         
     *   Stand By                                                           
     *   Rejected                                                           
-    *   Declined (Consider if "Rejected" and "Declined" should be combined based on workflow).                                              
+    *   Declined (When the talent refuses the offer).                                              
 *   **Cards:** Each card represents a single `Participation`.                                                                              
     *   Card Content:                                                                                                                      
         *   Talent Name                                                                                                                    

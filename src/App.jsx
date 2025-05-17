@@ -1,8 +1,8 @@
 import Root from './pages/root.jsx';
 import Login from './pages/login.jsx';
 import HomePage from './pages/home.jsx';
-import ApplicationsKanbanPage from './pages/applications-kaban.jsx'; // Corrected import
-
+import TalentManagementPage from './pages/talents.jsx'; // Added new page
+import ApplicationsKanbanPage from './pages/applications-kaban.jsx';
 
 import {
   createBrowserRouter,
@@ -23,9 +23,13 @@ const router = createBrowserRouter([
         element: <HomePage />,
       },
       {
+        path: "talents",
+        element: <TalentManagementPage />,
+      },
+      {
         path: "applications/:processId",
         element: <ApplicationsKanbanPage />,
-      }
+      }      
     ],
   },
 ]);
