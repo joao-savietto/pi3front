@@ -244,6 +244,12 @@ export default function HomePage() {
           >
             Acessar
           </button>
+          <button 
+            className="btn btn-info ms-2"
+            onClick={() => navigate(`/applications/${selectedProcess?.id}`)}
+          >
+            Navegar
+          </button>
         </Modal.Footer>
       </Modal>
 
