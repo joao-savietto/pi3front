@@ -71,8 +71,8 @@ export default function ApplicationsKanbanPage() {
   const mapToCards = (apps) => {
     return apps.map((app) => ({
       id: app.id,
-      content: `${app.talent.name} - ${app.talent.email}`,
-      columnId: app.step || 'DATABASE',
+      content: `${app.applicant_data.name} - ${app.applicant_data.email || 'N/A'}`,
+      columnId: app.current_step || 'Database',
       is_ended: false // Placeholder; adjust based on actual logic
     }));
   };
