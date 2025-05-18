@@ -11,6 +11,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 export default function ApplicationsKanbanPage() {
   const axios = useAxios();
   const [applications, setApplications] = useState([]);
+  const [selectionProcess, setSelectionProcess] = useState(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
 
@@ -29,24 +30,31 @@ export default function ApplicationsKanbanPage() {
     { id: 'STAND_BY', title: 'Em Espera' }
   ];
 
-  // Fetch applications for the given selection process
+  // Fetch applications and selection process for the given selection process
   const { processId } = useParams();
   useEffect(() => {
     if (!axios || !processId) return;
 
-    const fetchApplications = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get(`/api/selection-processes/${processId}/applications`);
-        setApplications(response.data);
+        setLoading(true);
+        
+        // Fetch selection process description
+        const processResponse = await axios.get(`/api/selection-processes/${processId}`);
+        setSelectionProcess(processResponse.data);
+
+        // Fetch applications for the given selection process
+        const appsResponse = await axios.get(`/api/selection-processes/${processId}/applications`);
+        setApplications(appsResponse.data);
       } catch (err) {
-        setError('Falha ao carregar candidaturas.');
+        setError('Falha ao carregar dados do processo seletivo ou candidaturas.');
         console.error(err);
       } finally {
         setLoading(false);
       }
     };
 
-    fetchApplications();
+    fetchData();
   }, [axios, processId]);
 
   // Helper to map applications into Kanban cards
@@ -75,7 +83,12 @@ export default function ApplicationsKanbanPage() {
   return (
     <div className="d-flex flex-column h-100">
       <h2>Candidaturas no Processo Seletivo</h2>
-
+      {selectionProcess && (
+        <p className={homeStyles['subtitle']}>
+          {selectionProcess.description}
+        </p>
+      )}
+      
       <div className="flex-grow-1 overflow-auto">
         <KanbanV2
           columns={applicationSteps}
