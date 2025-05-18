@@ -122,7 +122,7 @@ export default function ApplicationsKanbanPage() {
         variant="success"
         size="sm" // Added to reduce button width
         onClick={() => setShowRegisterModal(true)}
-        className="mt-3 mb-4"
+        className={`mt-3 mb-4 ${homeStyles['custom-button-width']}`} // Now includes custom class
       >
         Registrar Talentos
       </Button>
