@@ -23,17 +23,17 @@ export default function ApplicationsKanbanPage() {
 
   // Define application steps (mirroring the Python enum)
   const applicationSteps = [
-    { id: 'HUNTING', title: 'Caça a Talentos' },
-    { id: 'DATABASE', title: 'Banco de Talentos' },
-    { id: 'HR_INTERVIEW', title: 'Entrevista com a RH' },
-    { id: 'LEADERSHIP_INTERVIEW', title: 'Entrevista Líder' },
-    { id: 'TECHNICAL_CHALLENGE', title: 'Desafio Técnico' },
-    { id: 'TECHNICAL_CHALLENGE_NOT_SUBMITTED', title: 'Desafio Não Enviado' },
-    { id: 'REJECTED', title: 'Rejeitado' },
-    { id: 'DECLINED', title: 'Recusado' },
-    { id: 'STAND_BY', title: 'Em Espera' },
-    { id: 'OFFER_PHASE', title: 'Fase de Oferta' },
-    { id: 'ONBOARDING', title: 'Onboarding' },
+    { id: 'Hunting', title: 'Caça a Talentos' },
+    { id: 'Database', title: 'Banco de Talentos' },
+    { id: 'HR Interview', title: 'Entrevista com a RH' },
+    { id: 'Leadership Interview', title: 'Entrevista Líder' },
+    { id: 'Technical Challenge', title: 'Desafio Técnico' },
+    { id: 'Technical Challenge Not Submitted', title: 'Desafio Não Enviado' },
+    { id: 'Rejected', title: 'Rejeitado' },
+    { id: 'Declined', title: 'Recusado' },
+    { id: 'Stand By', title: 'Em Espera' },
+    { id: 'Offer Phase', title: 'Fase de Oferta' },
+    { id: 'Onboarding', title: 'Onboarding' },
   ];
 
   // Fetch applications and selection process for the given selection process
@@ -95,7 +95,7 @@ export default function ApplicationsKanbanPage() {
       await axios.post('/api/applications/', {
         applicant: selectedTalentId,
         selection_process: processId,
-        current_step: 'DATABASE' // Default step
+        current_step: 'Database' // Default step
       });
       alert('Talento registrado com sucesso!');
       setShowRegisterModal(false);
