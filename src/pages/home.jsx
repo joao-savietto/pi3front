@@ -240,15 +240,9 @@ export default function HomePage() {
           </button>
           <button 
             className="btn btn-primary"
-            onClick={() => navigate(`/processes/${selectedProcess?.id}`)}
-          >
-            Acessar
-          </button>
-          <button 
-            className="btn btn-info ms-2"
             onClick={() => navigate(`/applications/${selectedProcess?.id}`)}
           >
-            Navegar
+            Acessar
           </button>
         </Modal.Footer>
       </Modal>
