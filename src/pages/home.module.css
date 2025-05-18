@@ -1,5 +1,10 @@
-.btn--normal-size {
-  max-width: fit-content;
-  padding-left: 1.5rem;
-  padding-right: 1.5rem;
+.subtitle {
+  font-size: 1.25rem;
+  color: #6c757d;
+}
+
+.custom-button-width {
+  max-width: 200px;
+  width: fit-content;
+  display: inline-block;
 }
