@@ -92,8 +92,10 @@ export default function ApplicationsKanbanPage() {
 
   const handleRegisterTalent = async () => {
     try {
-      await axios.post(`/api/selection-processes/${processId}/applications`, {
-        talent_id: selectedTalentId
+      await axios.post('/api/applications/', {
+        applicant: selectedTalentId,
+        selection_process: processId,
+        current_step: 'DATABASE' // Default step
       });
       alert('Talento registrado com sucesso!');
       setShowRegisterModal(false);
