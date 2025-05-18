@@ -16,17 +16,17 @@ export default function ApplicationsKanbanPage() {
 
   // Define application steps (mirroring the Python enum)
   const applicationSteps = [
-    { id: 'HR_INTERVIEW', title: 'HR Interview' },
-    { id: 'TECHNICAL_CHALLENGE', title: 'Technical Challenge' },
-    { id: 'LEADERSHIP_INTERVIEW', title: 'Leadership Interview' },
-    { id: 'TECHNICAL_CHALLENGE_NOT_SUBMITTED', title: 'Technical Challenge Not Submitted' },
-    { id: 'REJECTED', title: 'Rejected' },
-    { id: 'DECLINED', title: 'Declined' },
-    { id: 'OFFER_PHASE', title: 'Offer Phase' },
+    { id: 'HR_INTERVIEW', title: 'Entrevista com a RH' },
+    { id: 'TECHNICAL_CHALLENGE', title: 'Desafio Técnico' },
+    { id: 'LEADERSHIP_INTERVIEW', title: 'Entrevista Líder' },
+    { id: 'TECHNICAL_CHALLENGE_NOT_SUBMITTED', title: 'Desafio Não Enviado' },
+    { id: 'REJECTED', title: 'Rejeitado' },
+    { id: 'DECLINED', title: 'Recusado' },
+    { id: 'OFFER_PHASE', title: 'Fase de Oferta' },
     { id: 'ONBOARDING', title: 'Onboarding' },
-    { id: 'HUNTING', title: 'Hunting' },
-    { id: 'DATABASE', title: 'Database' },
-    { id: 'STAND_BY', title: 'Stand By' }
+    { id: 'HUNTING', title: 'Caça a Talentos' },
+    { id: 'DATABASE', title: 'Banco de Dados' },
+    { id: 'STAND_BY', title: 'Em Espera' }
   ];
 
   // Fetch applications for the given selection process
