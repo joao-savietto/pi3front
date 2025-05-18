@@ -120,6 +120,7 @@ export default function ApplicationsKanbanPage() {
       {/* Register Talent Button */}
       <Button
         variant="success"
+        size="sm" // Added to reduce button width
         onClick={() => setShowRegisterModal(true)}
         className="mt-3 mb-4"
       >
