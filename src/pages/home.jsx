@@ -156,12 +156,14 @@ export default function HomePage() {
   return (
     <div className="d-flex flex-column h-100">
       <h2>Processos Seletivos</h2>
-      <button
-        className={`btn btn-success mb-4 ${homeStyles['btn--normal-size']} w-auto`}
-        onClick={handleModalToggle}
-      >
-        Adicionar Processo Seletivo
-      </button>
+      <div style={{ maxWidth: '300px' }}>
+        <button
+          className={`btn btn-success mb-4 ${homeStyles['btn--normal-size']} w-auto`}
+          onClick={handleModalToggle}
+        >
+          Adicionar Processo Seletivo
+        </button>
+      </div>
 
       {/* Modal for adding/editing selection process */}
       <Modal show={showModal} onHide={handleModalToggle} centered>
@@ -207,7 +209,7 @@ export default function HomePage() {
             <button type="button" className="btn btn-secondary" onClick={handleModalToggle}>
               Cancelar
             </button>
-            <button type="submit" className="btn btn-success">
+            <button type="submit" class="btn btn-success">
               {editingCardId ? 'Atualizar' : 'Adicionar'}
             </button>
           </Modal.Footer>
