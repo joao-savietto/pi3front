@@ -1,14 +1,19 @@
-import React from "react";
+import PropTypes from 'prop-types';
 import { Card, Row, Col, Dropdown } from "react-bootstrap";
 import { GearFill } from "react-bootstrap-icons";
 import styles from '../components/KanbanV2.module.css';
 
-export default function CustomCard({ text, subtext, onClick, onEdit, onViewDetails }) {
+export default function CustomCard({ text, subtext, onEdit, onViewDetails }) {
+CustomCard.propTypes = {
+  text: PropTypes.string.isRequired,
+  subtext: PropTypes.string.isRequired,
+  onEdit: PropTypes.func,
+  onViewDetails: PropTypes.func
+};
   return (
     <Card 
       className={`${styles['custom-kanban-card']} mt-2`}
-      style={{ cursor: 'pointer' }}
-      onClick={onClick}
+      style={{ cursor: 'grab' }}
     >
       <Card.Body>
         <Row className="align-items-center">

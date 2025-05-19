@@ -1,12 +1,20 @@
-import React, { useState, useEffect } from 'react';
+import PropTypes from 'prop-types';
 import styles from './KanbanV2.module.css';
 import { DndContext, closestCenter } from '@dnd-kit/core';
-import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
+import { 
+  SortableContext, 
+  verticalListSortingStrategy,
+  useSortable
+} from '@dnd-kit/sortable';
+import { CSS } from '@dnd-kit/utilities';
 
 /**
  * Renders a single column header.
  */
 function ColumnHeader({ title }) {
+ColumnHeader.propTypes = {
+  title: PropTypes.string.isRequired
+};
   return (
     <h3 className={styles['custom-kanban-header']}>
       {title}
@@ -17,7 +25,43 @@ function ColumnHeader({ title }) {
 /**
  * Renders an individual card in the Kanban board.
  */
+function SortableItem({ id, content, renderCard }) {
+SortableItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  renderCard: PropTypes.func
+};
+  const {
+    attributes,
+    listeners,
+    setNodeRef,
+    transform,
+    transition,
+  } = useSortable({ id });
+
+  const style = {
+    transform: CSS.Transform.toString(transform),
+    transition,
+  };
+
+  return (
+    <div 
+      ref={setNodeRef}
+      style={style}
+      {...attributes}
+      {...listeners}
+    >
+      <CardItem id={id} content={content} renderCard={renderCard} />
+    </div>
+  );
+}
+
 function CardItem({ id, content, renderCard = null }) {
+CardItem.propTypes = {
+  id: PropTypes.string.isRequired,
+  content: PropTypes.string.isRequired,
+  renderCard: PropTypes.func
+};
   const defaultRender = () => <div>{content}</div>;
   return (
     <div key={id} className={styles['custom-kanban-card']}>
@@ -29,6 +73,21 @@ function CardItem({ id, content, renderCard = null }) {
 /**
  * Main KanbanV2 component.
  */
+KanbanV2.propTypes = {
+  columns: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired
+  })),
+  cards: PropTypes.arrayOf(PropTypes.shape({
+    id: PropTypes.string.isRequired,
+    content: PropTypes.string.isRequired,
+    columnId: PropTypes.string.isRequired
+  })),
+  onMoveCard: PropTypes.func,
+  renderColumnHeader: PropTypes.func,
+  renderCard: PropTypes.func
+};
+
 export default function KanbanV2({ 
   columns = [], 
   cards = [],
@@ -77,7 +136,7 @@ export default function KanbanV2({
                 strategy={verticalListSortingStrategy}
               >
                 {columnCards.map(card => (
-                  <CardItem key={card.id} id={card.id} content={card.content} renderCard={renderCard} />
+                  <SortableItem key={card.id} id={card.id} content={card.content} renderCard={renderCard} />
                 ))}
               </SortableContext>
             </div>
