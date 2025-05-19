@@ -79,7 +79,7 @@ KanbanV2.propTypes = {
     title: PropTypes.string.isRequired
   })),
   cards: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
+    id: PropTypes.string.isRequired, // ✅ Ensures consistency with string IDs
     content: PropTypes.string.isRequired,
     columnId: PropTypes.string.isRequired
   })),
