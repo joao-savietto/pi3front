@@ -8,3 +8,8 @@
   width: fit-content;
   display: inline-block;
 }
+
+.btn--normal-size {
+  max-width: 200px;
+  width: fit-content;
+}
