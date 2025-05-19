@@ -136,7 +136,7 @@ export default function KanbanV2({
                 strategy={verticalListSortingStrategy}
               >
                 {columnCards.map(card => (
-                  <SortableItem key={card.id} id={card.id} content={card.content} renderCard={renderCard} />
+                  <SortableItem key={card.id} id={String(card.id)} content={card.content} renderCard={renderCard} />
                 ))}
               </SortableContext>
             </div>
