@@ -42,7 +42,7 @@ export default function HomePage() {
   // Helper to map selection processes into Kanban cards
   const mapToCards = (processes) => {
     return processes.map((process) => ({
-      id: process.id,
+      id: String(process.id),
       content: process.description,
       columnId: process.category,
       is_ended: process.is_ended || false
