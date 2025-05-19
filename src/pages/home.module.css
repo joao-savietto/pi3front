@@ -10,6 +10,7 @@
 }
 
 .btn--normal-size {
-  max-width: 200px;
+  max-width: 230px; /* Increased by ~15% */
   width: fit-content;
+  padding: 0.4rem 1rem; /* Optional padding for visual size increase */
 }
