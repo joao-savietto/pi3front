@@ -157,7 +157,7 @@ export default function HomePage() {
     <div className="d-flex flex-column h-100">
       <h2>Processos Seletivos</h2>
       <button
-        className={`btn btn-success mb-4 ${homeStyles['btn--normal-size']}`}
+        className={`btn btn-success mb-4 ${homeStyles['btn--normal-size']} w-auto`}
         onClick={handleModalToggle}
       >
         Adicionar Processo Seletivo
