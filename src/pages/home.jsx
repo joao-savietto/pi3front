@@ -158,7 +158,7 @@ export default function HomePage() {
       <h2>Processos Seletivos</h2>
       <div style={{ maxWidth: '300px' }}>
         <button
-          className={`btn btn-success mb-4 ${homeStyles['btn--normal-size']} w-auto`}
+          className={`btn btn-success mb-4`}
           onClick={handleModalToggle}
         >
           Adicionar Processo Seletivo
