@@ -260,7 +260,7 @@ export default function HomePage() {
             return (
               <CustomCard
                 text={content}
-                subtext={card.is_ended ? "Processo Encerrado" : "Processo Aberto"}
+                subtext={(card?.is_ended) ? "Processo Encerrado" : "Processo Aberto"}
                 onClick={() => console.log("View details for", id)}
                 onEdit={() => handleEdit(id)}
                 onViewDetails={() => handleViewDetails(id)}
