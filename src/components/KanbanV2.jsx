@@ -1,20 +1,17 @@
-import PropTypes from 'prop-types';
 import styles from './KanbanV2.module.css';
-import { DndContext, closestCenter } from '@dnd-kit/core';
-import { 
-  SortableContext, 
-  verticalListSortingStrategy,
-  useSortable
-} from '@dnd-kit/sortable';
-import { CSS } from '@dnd-kit/utilities';
+import {
+  DndProvider,
+  useDrop,
+  useDrag
+} from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
-/**
- * Renders a single column header.
- */
-function ColumnHeader({ title }) {
-ColumnHeader.propTypes = {
-  title: PropTypes.string.isRequired
+const ItemType = {
+  CARD: 'card',
 };
+
+// Renders a single column header.
+function ColumnHeader({ title }) {
   return (
     <h3 className={styles['custom-kanban-header']}>
       {title}
@@ -22,50 +19,48 @@ ColumnHeader.propTypes = {
   );
 }
 
-/**
- * Renders an individual card in the Kanban board.
- */
-function SortableItem({ id, content, renderCard }) {
-SortableItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  renderCard: PropTypes.func
-};
-  const {
-    attributes,
-    listeners,
-    setNodeRef,
-    transform,
-    transition,
-  } = useSortable({ id });
-
-  const style = {
-    transform: CSS.Transform.toString(transform),
-    transition,
-  };
-
+// Renders an individual card in the Kanban board.
+function CardItem({ id, content, renderCard }) {
+  const [{ isDragging }, drag] = useDrag({
+    type: ItemType.CARD,
+    item: { id },
+    collect: monitor => ({
+      isDragging: !!monitor.isDragging(),
+    }),
+  });
+  const defaultRender = () => <div>{content}</div>;
+  
   return (
-    <div 
-      ref={setNodeRef}
-      style={style}
-      {...attributes}
-      {...listeners}
+    <div
+      ref={drag}
+      className={styles['custom-kanban-card']}
+      style={{ opacity: isDragging ? 0.5 : 1 }}
     >
-      <CardItem id={id} content={content} renderCard={renderCard} />
+      {renderCard ? renderCard(id, content) : defaultRender()}
     </div>
   );
 }
 
-function CardItem({ id, content, renderCard = null }) {
-CardItem.propTypes = {
-  id: PropTypes.string.isRequired,
-  content: PropTypes.string.isRequired,
-  renderCard: PropTypes.func
-};
-  const defaultRender = () => <div>{content}</div>;
+function KanbanColumn({ column, cards, onMoveCard, renderCard }) {
+  const [{ canDrop, isOver }, drop] = useDrop({
+    accept: ItemType.CARD,
+    drop: (item) => {
+      if (item.id) {
+        onMoveCard(item.id, column.id);
+      }
+    },
+    collect: monitor => ({
+      isOver: !!monitor.isOver(),
+      canDrop: !!monitor.canDrop(),
+    }),
+  });
+  
   return (
-    <div key={id} className={styles['custom-kanban-card']}>
-      {renderCard ? renderCard(id, content) : defaultRender()}
+    <div ref={drop} className={styles['custom-kanban-column']} data-column-id={column.id}>
+      <ColumnHeader title={column.title} />
+      {cards.map(card => (
+        <CardItem key={card.id} id={card.id} content={card.content} renderCard={renderCard} />
+      ))}
     </div>
   );
 }
@@ -73,76 +68,32 @@ CardItem.propTypes = {
 /**
  * Main KanbanV2 component.
  */
-KanbanV2.propTypes = {
-  columns: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired,
-    title: PropTypes.string.isRequired
-  })),
-  cards: PropTypes.arrayOf(PropTypes.shape({
-    id: PropTypes.string.isRequired, // ✅ Ensures consistency with string IDs
-    content: PropTypes.string.isRequired,
-    columnId: PropTypes.string.isRequired
-  })),
-  onMoveCard: PropTypes.func,
-  renderColumnHeader: PropTypes.func,
-  renderCard: PropTypes.func
-};
-
-export default function KanbanV2({ 
-  columns = [], 
+export default function KanbanV2({
+  columns = [],
   cards = [],
   onMoveCard = () => {},
-  renderColumnHeader = null,
   renderCard = null
 }) {
-  const handleDragEnd = (event) => {
-    const { active, over } = event;
-
-    if (!over || active.id === over.id) return;
-
-    const activeCard = cards.find((card) => card.id === active.id);
-    const overColumnId = over.data.current?.sortable.containerId;
-
-    if (activeCard && overColumnId) {
-      onMoveCard(active.id, overColumnId, activeCard);
-    }
-  };
-
-  // Group cards by column
   const getCardsForColumn = (columnId) => {
-    return cards.filter(card => card.columnId === columnId).map(card => ({
-      id: card.id,
-      content: card.content,
-    }));
+    return cards.filter(card => card.columnId === columnId);
   };
-
+  
   return (
-    <DndContext collisionDetection={closestCenter} onDragEnd={handleDragEnd}>
-      <div className={`${styles['kanban-board']} d-flex flex-nowrap`}>
+    <DndProvider backend={HTML5Backend}>
+      <div className={`${styles['kanban-board']} d-flex flex-nowrap h-100`}>
         {columns.map((column) => {
           const columnCards = getCardsForColumn(column.id);
           return (
-            <div 
+            <KanbanColumn
               key={column.id}
-              className={styles['custom-kanban-column']}
-              data-column-id={column.id}
-            >
-              {/* Column Header */}
-              {renderColumnHeader ? renderColumnHeader(column) : <ColumnHeader title={column.title} />}
-
-              {/* Cards List */}
-              <SortableContext
-                items={columnCards.map(c => c.id)}
-                strategy={verticalListSortingStrategy}
-              >
-                {columnCards.map(card => (
-                  <SortableItem key={card.id} id={String(card.id)} content={card.content} renderCard={renderCard} />
-                ))}
-              </SortableContext>
-            </div>
+              column={column}
+              cards={columnCards}
+              onMoveCard={onMoveCard}
+              renderCard={renderCard}
+            />
           );
         })}
       </div>
-    </DndContext>
+    </DndProvider>
   );
 }
