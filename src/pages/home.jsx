@@ -130,6 +130,7 @@ export default function HomePage() {
   // Edit handler
   const handleEdit = (id) => {
     const processToEdit = selectionProcesses.find(p => p.id === id);
+    console.log("handle edit chamado")
     if (!processToEdit) return;
 
     setEditingCardId(id);
@@ -141,7 +142,10 @@ export default function HomePage() {
 
   // View Details handler
   const handleViewDetails = (id) => {
+    console.log("handle view details chamado")
     const processToView = selectionProcesses.find(p => p.id === id);
+    console.log(id)
+    console.log(selectedProcess)
     if (!processToView) return;
 
     setSelectedProcess(processToView);
