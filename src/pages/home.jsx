@@ -71,8 +71,19 @@ export default function HomePage() {
   const cards = mapToCards(selectionProcesses);
 
   // Handle card movement
-  const handleMoveCard = (card_id, column_id) => {
-    // TODO: implement PATCH to switch process category
+  const handleMoveCard = async (card_id, column_id) => {
+    const id = parseInt(card_id); // Convert string ID to number for API
+
+    try {
+      await axios.patch(`/api/selection-processes/${id}/`, { category: column_id });
+      
+      // Refresh data after successful update
+      const response = await axios.get('/api/selection-processes/');
+      setSelectionProcesses(response.data);
+    } catch (err) {
+      console.error('Erro ao atualizar categoria do processo:', err);
+      alert('Falha ao atualizar a categoria do processo.');
+    }
   };
 
   // Modal toggle and form submission logic
