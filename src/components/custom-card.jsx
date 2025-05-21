@@ -4,12 +4,13 @@ import { GearFill } from "react-bootstrap-icons";
 import styles from '../components/KanbanV2.module.css';
 import { useState } from 'react';
 
-export default function CustomCard({ text, subtext, onEdit, onViewDetails }) {
+export default function CustomCard({ text, subtext, onEdit, onViewDetails, onDelete }) {
   CustomCard.propTypes = {
     text: PropTypes.string.isRequired,
     subtext: PropTypes.string.isRequired,
     onEdit: PropTypes.func,
-    onViewDetails: PropTypes.func
+    onViewDetails: PropTypes.func,
+    onDelete: PropTypes.func
   };
 
   const [open, setOpen] = useState(false);
@@ -57,6 +58,9 @@ export default function CustomCard({ text, subtext, onEdit, onViewDetails }) {
                   )}
                   {onViewDetails && (
                     <Dropdown.Item onClick={() => handleDropdownItemClick(onViewDetails)}>Detalhes</Dropdown.Item>
+                  )}
+                  {onDelete && (
+                    <Dropdown.Item onClick={() => handleDropdownItemClick(onDelete)}>Excluir</Dropdown.Item>
                   )}
                 </Dropdown.Menu>
               </Dropdown>
