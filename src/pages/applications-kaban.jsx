@@ -8,6 +8,7 @@ import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
 import { useNavigate, useParams } from 'react-router-dom';
+import Toast from 'react-bootstrap/Toast';
 
 export default function ApplicationsKanbanPage() {
   const axios = useAxios();
@@ -20,6 +21,11 @@ export default function ApplicationsKanbanPage() {
   const [showRegisterModal, setShowRegisterModal] = useState(false);
   const [talents, setTalents] = useState([]);
   const [selectedTalentId, setSelectedTalentId] = useState(null);
+
+  // Toast states
+  const [showSuccessToast, setShowSuccessToast] = useState(false);
+  const [showErrorToast, setShowErrorToast] = useState(false);
+  const [toastMessage, setToastMessage] = useState('');
 
   // Define application steps (mirroring the Python enum)
   const applicationSteps = [
@@ -80,9 +86,10 @@ export default function ApplicationsKanbanPage() {
   const cards = mapToCards(applications);
 
   // Handle card movement (step change)
-  const handleMoveCard = async (fromColumn, toColumn, card) => {
+  const handleMoveCard = async (card_id, column_id) => {
     try {
-      await axios.patch(`/api/applications/${card.id}/`, { current_step: toColumn.id });
+      
+      await axios.patch(`/api/applications/${card_id}/`, { current_step: column_id });
 
       // Refresh data after successful update
       const appsResponse = await axios.get(`/api/selection-processes/${processId}/applications`);
@@ -103,7 +110,10 @@ export default function ApplicationsKanbanPage() {
         selection_process: processId,
         current_step: 'Database' // Default step
       });
-      alert('Talento registrado com sucesso!');
+      
+      setToastMessage('Talento registrado com sucesso!');
+      setShowSuccessToast(true);
+      
       setShowRegisterModal(false);
       setSelectedTalentId(null);
 
@@ -113,6 +123,8 @@ export default function ApplicationsKanbanPage() {
     } catch (err) {
       setError('Falha ao registrar o talento.');
       console.error(err);
+      setToastMessage('Falha ao registrar o talento.');
+      setShowErrorToast(true);
     }
   };
 
@@ -205,6 +217,35 @@ export default function ApplicationsKanbanPage() {
           </Button>
         </Modal.Footer>
       </Modal>
+
+      {/* Success Toast */}
+      <Toast 
+        show={showSuccessToast} 
+        onClose={() => setShowSuccessToast(false)} 
+        autohide 
+        delay={3000}
+        className="position-fixed bottom-0 end-0 m-3"
+      >
+        <Toast.Header>
+          <strong className="me-auto">Sucesso</strong>
+        </Toast.Header>
+        <Toast.Body>{toastMessage}</Toast.Body>
+      </Toast>
+
+      {/* Error Toast */}
+      <Toast 
+        show={showErrorToast} 
+        onClose={() => setShowErrorToast(false)} 
+        autohide 
+        delay={3000}
+        bg="danger"
+        className="position-fixed bottom-0 end-0 m-3 text-white"
+      >
+        <Toast.Header>
+          <strong className="me-auto">Erro</strong>
+        </Toast.Header>
+        <Toast.Body>{toastMessage}</Toast.Body>
+      </Toast>
     </div>
   );
 }
