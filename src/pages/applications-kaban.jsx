@@ -22,6 +22,10 @@ export default function ApplicationsKanbanPage() {
   const [talents, setTalents] = useState([]);
   const [selectedTalentId, setSelectedTalentId] = useState(null);
 
+  // Delete confirmation modal state
+  const [showDeleteModal, setShowDeleteModal] = useState(false);
+  const [deleteCardId, setDeleteCardId] = useState(null);
+
   // Toast states
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
@@ -118,6 +122,24 @@ export default function ApplicationsKanbanPage() {
     }
   };
 
+  // Show confirmation modal before deletion
+  const handleConfirmDelete = (id) => {
+    setDeleteCardId(id);
+    setShowDeleteModal(true);
+  };
+
+  // Confirm and perform the actual delete action
+  const handleDeleteConfirmed = async () => {
+    await handleDelete(deleteCardId);
+    setShowDeleteModal(false);
+  };
+
+  // Cancel deletion confirmation
+  const handleCloseDeleteModal = () => {
+    setDeleteCardId(null);
+    setShowDeleteModal(false);
+  };
+
   if (loading) return <div className="container mt-5">Carregando...</div>;
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
 
@@ -181,7 +203,7 @@ export default function ApplicationsKanbanPage() {
                 onClick={() => console.log("View details for", id)}
                 onEdit={() => alert('Editar candidatura')}
                 onViewDetails={() => alert('Ver detalhes')}
-                onDelete={() => handleDelete(id)} // New prop added here
+                onDelete={() => handleConfirmDelete(id)} // Triggers confirmation modal
               />
             );
           }}
@@ -232,6 +254,24 @@ export default function ApplicationsKanbanPage() {
             onClick={handleRegisterTalent}
           >
             Registrar
+          </Button>
+        </Modal.Footer>
+      </Modal>
+
+      {/* Delete Confirmation Modal */}
+      <Modal show={showDeleteModal} onHide={handleCloseDeleteModal}>
+        <Modal.Header closeButton>
+          <Modal.Title>Confirmar Exclusão</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          Tem certeza de que deseja excluir esta candidatura?
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleCloseDeleteModal}>
+            Cancelar
+          </Button>
+          <Button variant="danger" onClick={handleDeleteConfirmed}>
+            Excluir
           </Button>
         </Modal.Footer>
       </Modal>
