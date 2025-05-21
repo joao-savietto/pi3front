@@ -80,11 +80,17 @@ export default function ApplicationsKanbanPage() {
   const cards = mapToCards(applications);
 
   // Handle card movement (step change)
-  const handleMoveCard = (fromColumn, toColumn, card) => {
-    alert(
-      `Movido candidatura "${card.content}" de "${fromColumn}" para "${toColumn}"`
-    );
-    // TODO: Update application step via API
+  const handleMoveCard = async (fromColumn, toColumn, card) => {
+    try {
+      await axios.patch(`/api/applications/${card.id}/`, { current_step: toColumn.id });
+
+      // Refresh data after successful update
+      const appsResponse = await axios.get(`/api/selection-processes/${processId}/applications`);
+      setApplications(appsResponse.data);
+    } catch (err) {
+      console.error('Erro ao atualizar etapa da candidatura:', err);
+      alert('Falha ao atualizar a etapa da candidatura.');
+    }
   };
 
   if (loading) return <div className="container mt-5">Carregando...</div>;
