@@ -26,6 +26,10 @@ export default function ApplicationsKanbanPage() {
   const [showDeleteModal, setShowDeleteModal] = useState(false);
   const [deleteCardId, setDeleteCardId] = useState(null);
 
+  // View details modal state
+  const [showDetailsModal, setShowDetailsModal] = useState(false);
+  const [selectedApplication, setSelectedApplication] = useState(null);
+
   // Toast states
   const [showSuccessToast, setShowSuccessToast] = useState(false);
   const [showErrorToast, setShowErrorToast] = useState(false);
@@ -140,6 +144,33 @@ export default function ApplicationsKanbanPage() {
     setShowDeleteModal(false);
   };
 
+  // Show view details modal with selected application data
+  const handleViewDetails = (id) => {
+    const appToView = applications.find(app => app.id === id);
+    if (!appToView) return;
+    
+    setSelectedApplication(appToView);
+    setShowDetailsModal(true);
+  };
+
+  // Close the view details modal
+  const handleCloseDetailsModal = () => {
+    setSelectedApplication(null);
+    setShowDetailsModal(false);
+  };
+
+  // Format date for display (same as in TalentManagementPage)
+  const formatDate = (dateString) => {
+    const date = new Date(dateString);
+    if (isNaN(date)) return 'N/A';
+    
+    return new Date(dateString).toLocaleDateString('pt-BR', {
+      year: 'numeric',
+      month: 'short',
+      day: '2-digit'
+    });
+  };
+
   if (loading) return <div className="container mt-5">Carregando...</div>;
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
 
@@ -200,9 +231,9 @@ export default function ApplicationsKanbanPage() {
               <CustomCard
                 text={content}
                 subtext="Detalhes da candidatura"
-                onClick={() => console.log("View details for", id)}
+                onClick={() => handleViewDetails(id)} // Triggers view details modal
                 onEdit={() => alert('Editar candidatura')}
-                onViewDetails={() => alert('Ver detalhes')}
+                onViewDetails={() => handleViewDetails(id)}
                 onDelete={() => handleConfirmDelete(id)} // Triggers confirmation modal
               />
             );
@@ -274,6 +305,71 @@ export default function ApplicationsKanbanPage() {
             Excluir
           </Button>
         </Modal.Footer>
+      </Modal>
+
+      {/* View Details Modal */}
+      <Modal show={showDetailsModal} onHide={handleCloseDetailsModal} size="lg" centered>
+        <Modal.Header closeButton>
+          <Modal.Title>{selectedApplication?.applicant_data.name}</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          {selectedApplication && (
+            <div>
+              <p><strong>Sobre:</strong> {selectedApplication.applicant_data.about || 'Nenhuma descrição disponível'}</p>
+              <p><strong>Contatos:</strong> {selectedApplication.applicant_data.contacts || 'N/A'}</p>
+              <p><strong>Criado Em:</strong> {formatDate(selectedApplication.applicant_data.created_at)}</p>
+              <p><strong>Atualizado Em:</strong> {formatDate(selectedApplication.applicant_data.updated_at)}</p>
+
+              {/* Experiences */}
+              <h5>Experiências</h5>
+              {selectedApplication.applicant_data.experiences?.length > 0 ? (
+                <ul>
+                  {selectedApplication.applicant_data.experiences.map((exp, i) => (
+                    <li key={i}>{exp}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhuma experiência registrada</p>
+              )}
+
+              {/* Educations */}
+              <h5>Educação</h5>
+              {selectedApplication.applicant_data.educations?.length > 0 ? (
+                <ul>
+                  {selectedApplication.applicant_data.educations.map((edu, i) => (
+                    <li key={i}>{edu}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhuma educação registrada</p>
+              )}
+
+              {/* Interests */}
+              <h5>Interesses</h5>
+              {selectedApplication.applicant_data.interests?.length > 0 ? (
+                <ul>
+                  {selectedApplication.applicant_data.interests.map((int, i) => (
+                    <li key={i}>{int}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhum interesse registrado</p>
+              )}
+
+              {/* Accomplishments */}
+              <h5>Conquistas</h5>
+              {selectedApplication.applicant_data.accomplishments?.length > 0 ? (
+                <ul>
+                  {selectedApplication.applicant_data.accomplishments.map((acc, i) => (
+                    <li key={i}>{acc}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>Nenhuma conquista registrada</p>
+              )}
+            </div>
+          )}
+        </Modal.Body>
       </Modal>
 
       {/* Success Toast */}
