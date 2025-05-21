@@ -232,7 +232,6 @@ export default function ApplicationsKanbanPage() {
                 text={content}
                 subtext="Detalhes da candidatura"
                 onClick={() => handleViewDetails(id)} // Triggers view details modal
-                onEdit={() => alert('Editar candidatura')}
                 onViewDetails={() => handleViewDetails(id)}
                 onDelete={() => handleConfirmDelete(id)} // Triggers confirmation modal
               />
