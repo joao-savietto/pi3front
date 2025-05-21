@@ -100,6 +100,24 @@ export default function ApplicationsKanbanPage() {
     }
   };
 
+  // Handle card deletion
+  const handleDelete = async (card_id) => {
+    try {
+      await axios.delete(`/api/applications/${card_id}/`);
+
+      setToastMessage('Candidatura excluída com sucesso!');
+      setShowSuccessToast(true);
+
+      // Refresh data after successful deletion
+      const appsResponse = await axios.get(`/api/selection-processes/${processId}/applications`);
+      setApplications(appsResponse.data);
+    } catch (err) {
+      console.error('Erro ao excluir candidatura:', err);
+      setToastMessage('Falha ao excluir a candidatura.');
+      setShowErrorToast(true);
+    }
+  };
+
   if (loading) return <div className="container mt-5">Carregando...</div>;
   if (error) return <div className="container mt-5 text-danger">{error}</div>;
 
@@ -163,6 +181,7 @@ export default function ApplicationsKanbanPage() {
                 onClick={() => console.log("View details for", id)}
                 onEdit={() => alert('Editar candidatura')}
                 onViewDetails={() => alert('Ver detalhes')}
+                onDelete={() => handleDelete(id)} // New prop added here
               />
             );
           }}
