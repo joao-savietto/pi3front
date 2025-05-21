@@ -21,8 +21,6 @@ export default function CustomCard({ text, subtext, onEdit, onViewDetails, onDel
 
   const handleDropdownItemClick = (callback) => {
     setOpen(false); // Fecha o dropdown ao clicar em um item
-    console.log("clicou")
-    console.log(callback)
     callback();
   };
 
