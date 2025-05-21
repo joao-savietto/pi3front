@@ -23,7 +23,7 @@ function ColumnHeader({ title }) {
 function CardItem({ id, content, renderCard }) {
   const [{ isDragging }, drag] = useDrag({
     type: ItemType.CARD,
-    item: { id },
+    item: { id, },
     collect: monitor => ({
       isDragging: !!monitor.isDragging(),
     }),

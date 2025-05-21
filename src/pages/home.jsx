@@ -71,10 +71,8 @@ export default function HomePage() {
   const cards = mapToCards(selectionProcesses);
 
   // Handle card movement
-  const handleMoveCard = (fromColumn, toColumn, card) => {
-    alert(
-      `Movido cartão "${card.content}" de "${fromColumn}" para "${toColumn}"`
-    );
+  const handleMoveCard = (card_id, column_id) => {
+    // TODO: implement PATCH to switch process category
   };
 
   // Modal toggle and form submission logic
