@@ -7,7 +7,7 @@ import homeStyles from './home.module.css';
 import Modal from 'react-bootstrap/Modal';
 import Form from 'react-bootstrap/Form';
 import Button from 'react-bootstrap/Button';
-import { useNavigate, useParams } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import Toast from 'react-bootstrap/Toast';
 
 export default function ApplicationsKanbanPage() {
@@ -77,7 +77,7 @@ export default function ApplicationsKanbanPage() {
   const mapToCards = (apps) => {
     return apps.map((app) => ({
       id: app.id,
-      content: `${app.applicant_data.name} - ${app.applicant_data.email || 'N/A'}`,
+      content: `${app.applicant_data.name}`,
       columnId: app.current_step || 'Database',
       is_ended: false // Placeholder; adjust based on actual logic
     }));
@@ -156,7 +156,6 @@ export default function ApplicationsKanbanPage() {
             <h3 className={styles['custom-kanban-header']}>{column.title}</h3>
           )}
           renderCard={(id, content) => {
-            const card = cards.find(c => c.id === id);
             return (
               <CustomCard
                 text={content}
