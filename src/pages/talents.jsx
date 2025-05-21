@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { Table, Form, Button, Container, Row, Col, Modal, Alert } from 'react-bootstrap';
+import { Table, Form, Button, Container, Row, Col, Modal, Toast } from 'react-bootstrap';
 import { Search } from 'react-bootstrap-icons'; // Import the search icon
 import useAxios from '../services/hooks/useAxios';
 import StructuredDataEditor from '../components/StructuredDataEditor';
@@ -161,7 +161,7 @@ export default function TalentManagementPage() {
 
   return (
     <Container className="mt-4">
-      {error && <Alert variant="danger">{error}</Alert>}
+      {error && <Toast variant="danger" className="mt-3">{error}</Toast>}
       
       <h2>Gestão de Talentos</h2>
       
